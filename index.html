@@ -916,6 +916,16 @@
                 </div>
                 <div class="team-card fade-in">
                     <div class="team-image">
+                        <img src="images/img-2.jpeg" alt="Mohamed Ain Chemakh - Responsable RH">
+                    </div>
+                    <div class="team-info">
+                        <h3>Mohamed Amin Chemakh</h3>
+                        <p class="role">Responsable RH</p>
+                        <p>Gestion des talents, développement des compétences et création d'un environnement de travail optimal pour l'équipe.</p>
+                    </div>
+                </div>
+                <div class="team-card fade-in">
+                    <div class="team-image">
                         <img src="images/img-3.jpeg" alt="Rayen Ben Haj Massoud - Développeur">
                     </div>
                     <div class="team-info">
@@ -1024,7 +1034,7 @@
                 <p>Discutons de votre prochain projet</p>
             </div>
             <div class="contact-content fade-in">
-                <form class="contact-form" id="contactForm" action="https://formspree.io/f/xaqjvnyl" method="POST">
+                <form class="contact-form" id="contactForm">
                     <div class="form-group">
                         <label for="name">Nom Complet</label>
                         <input class="form-control" type="text" id="name" name="name" required>
@@ -1090,6 +1100,13 @@
         </div>
     </footer>
 
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("e0EVNmHRD2LewftW_");
+        })();
+    </script>
     <script>
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1126,7 +1143,14 @@
         // Form submission
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Merci pour votre message ! Nous vous contacterons bientôt.');
+
+            emailjs.sendForm('service_5ursgre', 'template_YOUR_TEMPLATE_ID', this)
+                .then(function() {
+                    alert('SUCCESS!');
+                }, function(error) {
+                    alert('FAILED...', error);
+                });
+
             this.reset();
         });
 
