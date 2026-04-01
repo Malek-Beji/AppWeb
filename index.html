@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -16,282 +17,257 @@
             --card-bg: rgba(255,255,255,0.04);
             --border: rgba(108,75,255,0.18);
         }
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--primary);
-            color: var(--white);
-            overflow-x: hidden;
-            font-weight: 400;
-        }
-        body::before {
-            content: '';
-            position: fixed; inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none; z-index: 0; opacity: 0.5;
-        }
-        .orb { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Outfit',sans-serif; background:var(--primary); color:var(--white); overflow-x:hidden; }
+        body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; opacity:0.5; }
+        .orb { position:fixed; border-radius:50%; filter:blur(120px); pointer-events:none; z-index:0; }
         .orb-1 { width:600px;height:600px;background:rgba(108,75,255,0.12);top:-100px;right:-100px; }
         .orb-2 { width:400px;height:400px;background:rgba(0,229,255,0.07);bottom:20%;left:-80px; }
         .orb-3 { width:300px;height:300px;background:rgba(108,75,255,0.09);bottom:10%;right:15%; }
 
-        /* NAV */
-        nav {
-            position: fixed; top:0; width:100%; z-index:1000;
-            padding: 1rem 6%;
-            display: flex; justify-content:space-between; align-items:center;
-            background: rgba(11,28,44,0.85);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(108,75,255,0.12);
-        }
-        .nav-logo { font-family:'Outfit',sans-serif; font-weight:800; font-size:1.4rem; flex-shrink:0; }
-        .nav-logo span { color:var(--purple); }
-        .nav-links { display:flex; gap:2.5rem; list-style:none; align-items:center; }
-        .nav-links a { color:var(--gray); text-decoration:none; font-size:0.92rem; font-weight:500; transition:color .3s; position:relative; }
-        .nav-links a:hover { color:var(--white); }
-        .nav-links a::after { content:''; position:absolute; bottom:-4px;left:0; width:0;height:1.5px; background:var(--purple); transition:width .3s; }
-        .nav-links a:hover::after { width:100%; }
-        .nav-cta { padding:.55rem 1.4rem; background:linear-gradient(135deg,var(--purple),var(--purple-light)); color:#fff!important; border-radius:50px; font-weight:600!important; font-size:.88rem!important; transition:all .3s!important; box-shadow:0 0 20px rgba(108,75,255,.3); white-space:nowrap; }
-        .nav-cta:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(108,75,255,.5)!important; }
-        .nav-cta::after { display:none!important; }
-        .menu-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; z-index:1001; }
-        .menu-toggle span { display:block; width:24px;height:2px; background:var(--white); transition:all .3s; transform-origin:center; }
-        .menu-toggle.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
-        .menu-toggle.open span:nth-child(2) { opacity:0; }
-        .menu-toggle.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+```
+    /* ── NAV ── */
+    nav { position:fixed;top:0;width:100%;z-index:1000;padding:1rem 6%;display:flex;justify-content:space-between;align-items:center;background:rgba(11,28,44,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(108,75,255,0.12); }
+    .nav-logo { font-family:'Outfit',sans-serif;font-weight:800;font-size:1.4rem;flex-shrink:0; }
+    .nav-logo span { color:var(--purple); }
+    .nav-links { display:flex;gap:2.5rem;list-style:none;align-items:center; }
+    .nav-links a { color:var(--gray);text-decoration:none;font-size:0.92rem;font-weight:500;transition:color .3s;position:relative; }
+    .nav-links a:hover { color:var(--white); }
+    .nav-links a::after { content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--purple);transition:width .3s; }
+    .nav-links a:hover::after { width:100%; }
+    .nav-cta { padding:.55rem 1.4rem;background:linear-gradient(135deg,var(--purple),var(--purple-light));color:#fff!important;border-radius:50px;font-weight:600!important;font-size:.88rem!important;transition:all .3s!important;box-shadow:0 0 20px rgba(108,75,255,.3);white-space:nowrap; }
+    .nav-cta:hover { transform:translateY(-2px);box-shadow:0 6px 28px rgba(108,75,255,.5)!important; }
+    .nav-cta::after { display:none!important; }
+    .menu-toggle { display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:1001; }
+    .menu-toggle span { display:block;width:24px;height:2px;background:var(--white);transition:all .3s;transform-origin:center; }
+    .menu-toggle.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .menu-toggle.open span:nth-child(2) { opacity:0; }
+    .menu-toggle.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
 
-        /* HERO */
-        .hero { min-height:100vh; display:flex; align-items:center; padding:8rem 6% 5rem; position:relative; z-index:1; }
-        .hero-inner { max-width:1300px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; width:100%; }
-        .hero-badge { display:inline-flex; align-items:center; gap:8px; padding:.4rem 1rem; background:rgba(108,75,255,.12); border:1px solid rgba(108,75,255,.3); border-radius:50px; font-size:.78rem; color:var(--purple-light); font-weight:600; margin-bottom:1.5rem; letter-spacing:1px; text-transform:uppercase; }
-        .hero-badge::before { content:'●'; font-size:.55rem; color:var(--cyan); animation:blink 1.5s infinite; }
-        @keyframes blink { 0%,100%{opacity:1}50%{opacity:.2} }
-        .hero h1 { font-family:'Fraunces',serif; font-weight:700; font-size:clamp(2.4rem,4.5vw,4.8rem); line-height:1.06; letter-spacing:-1px; margin-bottom:1.5rem; }
-        .grad { background:linear-gradient(135deg,var(--purple-light),var(--cyan)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-        .hero p { font-size:1.1rem; color:var(--gray); line-height:1.75; margin-bottom:2.5rem; max-width:480px; }
-        .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
-        .btn-primary { padding:.9rem 2.2rem; background:linear-gradient(135deg,var(--purple),var(--purple-light)); color:#fff; border-radius:50px; text-decoration:none; font-weight:600; font-size:.95rem; font-family:'Outfit',sans-serif; transition:all .3s; box-shadow:0 0 30px rgba(108,75,255,.35); border:none; cursor:pointer; display:inline-block; text-align:center; }
-        .btn-primary:hover { transform:translateY(-3px); box-shadow:0 8px 35px rgba(108,75,255,.55); }
-        .btn-outline { padding:.9rem 2.2rem; background:transparent; color:var(--white); border-radius:50px; text-decoration:none; font-weight:600; font-size:.95rem; font-family:'Outfit',sans-serif; transition:all .3s; border:1.5px solid rgba(0,229,255,.4); display:inline-block; text-align:center; }
-        .btn-outline:hover { background:rgba(0,229,255,.08); border-color:var(--cyan); transform:translateY(-3px); }
+    /* ── HERO ── */
+    .hero { min-height:100vh;display:flex;align-items:center;padding:8rem 6% 5rem;position:relative;z-index:1; }
+    .hero-inner { max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%; }
+    .hero-badge { display:inline-flex;align-items:center;gap:8px;padding:.4rem 1rem;background:rgba(108,75,255,.12);border:1px solid rgba(108,75,255,.3);border-radius:50px;font-size:.78rem;color:var(--purple-light);font-weight:600;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase; }
+    .hero-badge::before { content:'●';font-size:.55rem;color:var(--cyan);animation:blink 1.5s infinite; }
+    @keyframes blink { 0%,100%{opacity:1}50%{opacity:.2} }
+    .hero h1 { font-family:'Fraunces',serif;font-weight:700;font-size:clamp(2.4rem,4.5vw,4.8rem);line-height:1.06;letter-spacing:-1px;margin-bottom:1.5rem; }
+    .grad { background:linear-gradient(135deg,var(--purple-light),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent; }
+    .hero p { font-size:1.1rem;color:var(--gray);line-height:1.75;margin-bottom:2.5rem;max-width:480px; }
+    .hero-btns { display:flex;gap:1rem;flex-wrap:wrap; }
+    .btn-primary { padding:.9rem 2.2rem;background:linear-gradient(135deg,var(--purple),var(--purple-light));color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:.95rem;font-family:'Outfit',sans-serif;transition:all .3s;box-shadow:0 0 30px rgba(108,75,255,.35);border:none;cursor:pointer;display:inline-block;text-align:center; }
+    .btn-primary:hover { transform:translateY(-3px);box-shadow:0 8px 35px rgba(108,75,255,.55); }
+    .btn-outline { padding:.9rem 2.2rem;background:transparent;color:var(--white);border-radius:50px;text-decoration:none;font-weight:600;font-size:.95rem;font-family:'Outfit',sans-serif;transition:all .3s;border:1.5px solid rgba(0,229,255,.4);display:inline-block;text-align:center; }
+    .btn-outline:hover { background:rgba(0,229,255,.08);border-color:var(--cyan);transform:translateY(-3px); }
+    .hero-visual { position:relative;animation:floatIn 1s ease-out .4s both; }
+    @keyframes floatIn { from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)} }
+    .mockup-wrap { position:relative;padding:2px;border-radius:20px;background:linear-gradient(135deg,rgba(108,75,255,.4),rgba(0,229,255,.2)); }
+    .mockup-inner { background:rgba(8,15,30,.95);border-radius:18px;overflow:hidden; }
+    .mockup-topbar { display:flex;align-items:center;gap:8px;padding:14px 18px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06); }
+    .dot { width:10px;height:10px;border-radius:50%;flex-shrink:0; }
+    .dot-r{background:#FF5F56;}.dot-y{background:#FFBD2E;}.dot-g{background:#27C93F;}
+    .mockup-url { flex:1;background:rgba(255,255,255,.06);border-radius:6px;padding:5px 12px;font-size:.75rem;color:var(--gray);margin-left:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+    .mockup-body { padding:1.5rem;overflow-x:auto; }
+    .code-line { font-family:'Courier New',monospace;font-size:.85rem;line-height:1.9;opacity:0;animation:slideCode .4s ease-out forwards;white-space:nowrap; }
+    .code-line:nth-child(1){animation-delay:.8s}.code-line:nth-child(2){animation-delay:1s}.code-line:nth-child(3){animation-delay:1.2s}.code-line:nth-child(4){animation-delay:1.4s}.code-line:nth-child(5){animation-delay:1.6s}.code-line:nth-child(6){animation-delay:1.8s}.code-line:nth-child(7){animation-delay:2s}
+    @keyframes slideCode { from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)} }
+    .kw{color:#C792EA;}.fn{color:#82AAFF;}.str{color:#C3E88D;}.cm{color:#546E7A;}.num{color:#F78C6C;}
+    .float-card { position:absolute;bottom:-20px;right:-20px;background:rgba(11,28,44,.9);border:1px solid rgba(108,75,255,.25);border-radius:14px;padding:1rem 1.4rem;backdrop-filter:blur(10px);display:flex;align-items:center;gap:12px;animation:floatCard 3s ease-in-out infinite; }
+    @keyframes floatCard { 0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)} }
+    .float-icon { font-size:1.6rem; }
+    .float-text { font-size:.78rem;color:var(--gray); }
+    .float-text strong { display:block;color:var(--white);font-size:.9rem;font-weight:700; }
 
-        .hero-visual { position:relative; animation:floatIn 1s ease-out .4s both; }
-        @keyframes floatIn { from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)} }
-        .mockup-wrap { position:relative; padding:2px; border-radius:20px; background:linear-gradient(135deg,rgba(108,75,255,.4),rgba(0,229,255,.2)); }
-        .mockup-inner { background:rgba(8,15,30,.95); border-radius:18px; overflow:hidden; }
-        .mockup-topbar { display:flex; align-items:center; gap:8px; padding:14px 18px; background:rgba(255,255,255,.04); border-bottom:1px solid rgba(255,255,255,.06); }
-        .dot { width:10px;height:10px;border-radius:50%;flex-shrink:0; }
-        .dot-r{background:#FF5F56;}.dot-y{background:#FFBD2E;}.dot-g{background:#27C93F;}
-        .mockup-url { flex:1; background:rgba(255,255,255,.06); border-radius:6px; padding:5px 12px; font-size:.75rem; color:var(--gray); margin-left:8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-        .mockup-body { padding:1.5rem; overflow-x:auto; }
-        .code-line { font-family:'Courier New',monospace; font-size:.85rem; line-height:1.9; opacity:0; animation:slideCode .4s ease-out forwards; white-space:nowrap; }
-        .code-line:nth-child(1){animation-delay:.8s}.code-line:nth-child(2){animation-delay:1s}.code-line:nth-child(3){animation-delay:1.2s}.code-line:nth-child(4){animation-delay:1.4s}.code-line:nth-child(5){animation-delay:1.6s}.code-line:nth-child(6){animation-delay:1.8s}.code-line:nth-child(7){animation-delay:2s}
-        @keyframes slideCode { from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)} }
-        .kw{color:#C792EA;}.fn{color:#82AAFF;}.str{color:#C3E88D;}.cm{color:#546E7A;}.num{color:#F78C6C;}
-        .float-card { position:absolute; bottom:-20px;right:-20px; background:rgba(11,28,44,.9); border:1px solid rgba(108,75,255,.25); border-radius:14px; padding:1rem 1.4rem; backdrop-filter:blur(10px); display:flex; align-items:center; gap:12px; animation:floatCard 3s ease-in-out infinite; }
-        @keyframes floatCard { 0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)} }
-        .float-icon { font-size:1.6rem; }
-        .float-text { font-size:.78rem; color:var(--gray); }
-        .float-text strong { display:block; color:var(--white); font-size:.9rem; font-weight:700; }
+    /* ── SHARED ── */
+    section { position:relative;z-index:1; }
+    .container { max-width:1300px;margin:0 auto;padding:0 6%; }
+    .section-label { display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--purple-light);margin-bottom:1rem; }
+    .section-title { font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.9rem,3.5vw,3.2rem);letter-spacing:-.5px;line-height:1.1;margin-bottom:1rem; }
+    .section-sub { color:var(--gray);font-size:1.05rem;line-height:1.75;max-width:520px; }
+    .section-header { margin-bottom:4rem; }
+    .section-header.center { text-align:center; }
+    .section-header.center .section-sub { margin:0 auto; }
 
-        /* SHARED */
-        section { position:relative; z-index:1; }
-        .container { max-width:1300px; margin:0 auto; padding:0 6%; }
-        .section-label { display:inline-block; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; color:var(--purple-light); margin-bottom:1rem; }
-        .section-title { font-family:'Fraunces',serif; font-weight:700; font-size:clamp(1.9rem,3.5vw,3.2rem); letter-spacing:-.5px; line-height:1.1; margin-bottom:1rem; }
-        .section-sub { color:var(--gray); font-size:1.05rem; line-height:1.75; max-width:520px; }
-        .section-header { margin-bottom:4rem; }
-        .section-header.center { text-align:center; }
-        .section-header.center .section-sub { margin:0 auto; }
+    /* ── SERVICES ── */
+    .services { padding:7rem 0; }
+    .services-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem; }
+    .service-card { background:var(--card-bg);border:1px solid var(--border);border-radius:18px;padding:2.2rem 1.8rem;transition:all .4s;position:relative;overflow:hidden;cursor:default; }
+    .service-card::before { content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--purple),var(--cyan));transform:scaleX(0);transition:transform .4s; }
+    .service-card:hover::before { transform:scaleX(1); }
+    .service-card:hover { background:rgba(108,75,255,.08);border-color:rgba(108,75,255,.35);transform:translateY(-6px);box-shadow:0 20px 50px rgba(108,75,255,.15); }
+    .service-icon-wrap { width:54px;height:54px;background:rgba(108,75,255,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.4rem; }
+    .service-card h3 { font-family:'Outfit',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:.7rem; }
+    .service-card p { color:var(--gray);font-size:.88rem;line-height:1.65; }
 
-        /* SERVICES */
-        .services { padding:7rem 0; }
-        .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; }
-        .service-card { background:var(--card-bg); border:1px solid var(--border); border-radius:18px; padding:2.2rem 1.8rem; transition:all .4s; position:relative; overflow:hidden; cursor:default; }
-        .service-card::before { content:''; position:absolute; top:0;left:0; width:100%;height:2px; background:linear-gradient(90deg,var(--purple),var(--cyan)); transform:scaleX(0); transition:transform .4s; }
-        .service-card:hover::before { transform:scaleX(1); }
-        .service-card:hover { background:rgba(108,75,255,.08); border-color:rgba(108,75,255,.35); transform:translateY(-6px); box-shadow:0 20px 50px rgba(108,75,255,.15); }
-        .service-icon-wrap { width:54px;height:54px; background:rgba(108,75,255,.12); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; margin-bottom:1.4rem; }
-        .service-card h3 { font-family:'Outfit',sans-serif; font-weight:700; font-size:1.05rem; margin-bottom:.7rem; }
-        .service-card p { color:var(--gray); font-size:.88rem; line-height:1.65; }
+    /* ── À PROPOS ── */
+    .about { padding:7rem 0;background:linear-gradient(180deg,transparent,rgba(108,75,255,.04),transparent); }
+    .about-intro { text-align:center;margin-bottom:4rem; }
+    .about-intro p { color:var(--gray);font-size:1.1rem;line-height:1.8;max-width:750px;margin:1rem auto 0; }
 
-        /* ABOUT — nouvelle section */
-        .about { padding:7rem 0; background:linear-gradient(180deg,transparent,rgba(108,75,255,.04),transparent); }
-        .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
-        .about-text p { color:var(--gray); line-height:1.85; margin-bottom:1.3rem; font-size:1.02rem; }
+    /* Expertise cards */
+    .expertise-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem; }
+    .expertise-card { background:var(--card-bg);border:1px solid var(--border);border-radius:18px;padding:2rem 1.8rem;transition:all .4s;position:relative;overflow:hidden; }
+    .expertise-card::after { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(108,75,255,.06),transparent);opacity:0;transition:opacity .4s; }
+    .expertise-card:hover { border-color:rgba(108,75,255,.4);transform:translateY(-5px);box-shadow:0 20px 50px rgba(108,75,255,.15); }
+    .expertise-card:hover::after { opacity:1; }
+    .expertise-icon { font-size:2rem;margin-bottom:1rem; }
+    .expertise-card h3 { font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.8rem;color:var(--white); }
+    .expertise-card p { color:var(--gray);font-size:.87rem;line-height:1.65; }
 
-        .pitch-blocks { display:flex; flex-direction:column; gap:1rem; margin-top:0; }
-        .pitch-block { display:flex; gap:1.1rem; align-items:flex-start; padding:1.3rem 1.5rem; background:var(--card-bg); border:1px solid var(--border); border-radius:16px; transition:all .35s; }
-        .pitch-block:hover { border-color:rgba(108,75,255,.38); background:rgba(108,75,255,.07); transform:translateX(4px); }
-        .pitch-icon { font-size:1.5rem; flex-shrink:0; margin-top:.1rem; }
-        .pitch-body h4 { font-family:'Outfit',sans-serif; font-weight:700; font-size:.95rem; margin-bottom:.35rem; color:var(--white); }
-        .pitch-body p { color:var(--gray); font-size:.88rem; line-height:1.6; margin:0; }
+    /* Tech badges */
+    .tech-row { margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:.5rem; }
+    .tech-badge { padding:.25rem .75rem;background:rgba(108,75,255,.14);border:1px solid rgba(108,75,255,.28);border-radius:50px;font-size:.73rem;font-weight:600;color:var(--purple-light);letter-spacing:.3px; }
+    .tech-badge.cyan { background:rgba(0,229,255,.1);border-color:rgba(0,229,255,.25);color:var(--cyan); }
 
-        .tags-cloud { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:2rem; }
-        .tag { padding:.35rem .9rem; background:rgba(108,75,255,.12); border:1px solid rgba(108,75,255,.25); border-radius:50px; font-size:.76rem; color:var(--purple-light); font-weight:600; letter-spacing:.3px; }
+    /* Stats */
+    .stats-band { display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:0; }
+    .stat-box { background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:1.6rem 1rem;text-align:center; }
+    .stat-num { font-family:'Fraunces',serif;font-weight:700;font-size:2.4rem;background:linear-gradient(135deg,var(--purple-light),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1; }
+    .stat-lbl { color:var(--gray);font-size:.82rem;margin-top:.5rem;font-weight:500; }
 
-        .stats-row { display:grid; grid-template-columns:repeat(2,1fr); gap:1.2rem; margin-top:2.5rem; }
-        .stat-box { background:var(--card-bg); border:1px solid var(--border); border-radius:14px; padding:1.4rem; text-align:center; }
-        .stat-num { font-family:'Fraunces',serif; font-weight:700; font-size:2.3rem; background:linear-gradient(135deg,var(--purple-light),var(--cyan)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; line-height:1; }
-        .stat-lbl { color:var(--gray); font-size:.82rem; margin-top:.4rem; font-weight:500; }
+    /* ── PORTFOLIO ── */
+    .portfolio { padding:7rem 0; }
+    .portfolio-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem; }
+    .project-card { background:var(--card-bg);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:all .4s; }
+    .project-card:hover { transform:translateY(-8px);box-shadow:0 25px 60px rgba(108,75,255,.2);border-color:rgba(108,75,255,.4); }
+    .project-thumb { height:200px;overflow:hidden; }
+    .project-thumb-bg { width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;transition:transform .4s; }
+    .project-card:hover .project-thumb-bg { transform:scale(1.08); }
+    .thumb-1{background:linear-gradient(135deg,#1a0533,#2d1b69);}
+    .thumb-2{background:linear-gradient(135deg,#001a2c,#003d5c);}
+    .thumb-3{background:linear-gradient(135deg,#0d2418,#1a4a2e);}
+    .thumb-4{background:linear-gradient(135deg,#2c1a00,#5c3d00);}
+    .thumb-5{background:linear-gradient(135deg,#1a0020,#400050);}
+    .thumb-6{background:linear-gradient(135deg,#00152c,#003366);}
+    .project-info { padding:1.5rem; }
+    .project-tag { font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple-light);margin-bottom:.6rem; }
+    .project-info h3 { font-family:'Outfit',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:.5rem; }
+    .project-info p { color:var(--gray);font-size:.86rem;line-height:1.6; }
 
-        .tech-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; }
-        .tech-pill { background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:1.1rem .8rem; text-align:center; transition:all .3s; }
-        .tech-pill:hover { border-color:rgba(108,75,255,.4); background:rgba(108,75,255,.08); transform:scale(1.04); }
-        .tech-pill .emoji { font-size:1.7rem; margin-bottom:.4rem; }
-        .tech-pill span { font-size:.78rem; color:var(--gray); display:block; font-weight:500; }
+    /* ── WHY ── */
+    .why { padding:7rem 0; }
+    .why-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem; }
+    .why-card { background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:2rem 1.5rem;text-align:center;transition:all .3s; }
+    .why-card:hover { background:rgba(108,75,255,.08);border-color:rgba(108,75,255,.35);transform:translateY(-5px); }
+    .why-icon { font-size:2.2rem;margin-bottom:1rem; }
+    .why-card h3 { font-family:'Outfit',sans-serif;font-weight:700;font-size:.98rem;margin-bottom:.6rem; }
+    .why-card p { color:var(--gray);font-size:.85rem;line-height:1.6; }
 
-        /* PORTFOLIO */
-        .portfolio { padding:7rem 0; }
-        .portfolio-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; }
-        .project-card { background:var(--card-bg); border:1px solid var(--border); border-radius:18px; overflow:hidden; transition:all .4s; }
-        .project-card:hover { transform:translateY(-8px); box-shadow:0 25px 60px rgba(108,75,255,.2); border-color:rgba(108,75,255,.4); }
-        .project-thumb { height:200px; overflow:hidden; }
-        .project-thumb-bg { width:100%;height:100%; display:flex; align-items:center; justify-content:center; font-size:4rem; transition:transform .4s; }
-        .project-card:hover .project-thumb-bg { transform:scale(1.08); }
-        .thumb-1{background:linear-gradient(135deg,#1a0533,#2d1b69);}
-        .thumb-2{background:linear-gradient(135deg,#001a2c,#003d5c);}
-        .thumb-3{background:linear-gradient(135deg,#0d2418,#1a4a2e);}
-        .thumb-4{background:linear-gradient(135deg,#2c1a00,#5c3d00);}
-        .thumb-5{background:linear-gradient(135deg,#1a0020,#400050);}
-        .thumb-6{background:linear-gradient(135deg,#00152c,#003366);}
-        .project-info { padding:1.5rem; }
-        .project-tag { font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--purple-light); margin-bottom:.6rem; }
-        .project-info h3 { font-family:'Outfit',sans-serif; font-weight:700; font-size:1.05rem; margin-bottom:.5rem; }
-        .project-info p { color:var(--gray); font-size:.86rem; line-height:1.6; }
+    /* ── CTA ── */
+    .cta-band { padding:6rem 0; }
+    .cta-inner { max-width:1300px;margin:0 auto;padding:4rem 6%;background:linear-gradient(135deg,rgba(108,75,255,.18),rgba(0,229,255,.08));border:1px solid rgba(108,75,255,.25);border-radius:28px;display:flex;align-items:center;justify-content:space-between;gap:2rem;position:relative;overflow:hidden; }
+    .cta-inner::before { content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(108,75,255,.2),transparent 70%);pointer-events:none; }
+    .cta-text h2 { font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.5rem,3vw,2.4rem);letter-spacing:-.3px;margin-bottom:.5rem; }
+    .cta-text p { color:var(--gray);font-size:1rem; }
+    .cta-text p a { color:var(--cyan);text-decoration:none;font-weight:600; }
+    .cta-right { display:flex;flex-direction:column;align-items:flex-end;gap:1rem;flex-shrink:0; }
+    .cta-phone { font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;color:var(--cyan);white-space:nowrap; }
 
-        /* WHY */
-        .why { padding:7rem 0; }
-        .why-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; }
-        .why-card { background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:2rem 1.5rem; text-align:center; transition:all .3s; }
-        .why-card:hover { background:rgba(108,75,255,.08); border-color:rgba(108,75,255,.35); transform:translateY(-5px); }
-        .why-icon { font-size:2.2rem; margin-bottom:1rem; }
-        .why-card h3 { font-family:'Outfit',sans-serif; font-weight:700; font-size:.98rem; margin-bottom:.6rem; }
-        .why-card p { color:var(--gray); font-size:.85rem; line-height:1.6; }
+    /* ── CONTACT ── */
+    .contact { padding:7rem 0; }
+    .contact-grid { display:grid;grid-template-columns:1fr 1.6fr;gap:4rem;align-items:start; }
+    .contact-info-title { font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.5rem,3vw,2rem);margin-bottom:1rem; }
+    .contact-info-desc { color:var(--gray);line-height:1.75;margin-bottom:2rem;font-size:.97rem; }
+    .contact-detail { display:flex;align-items:center;gap:14px;padding:1rem 1.2rem;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;margin-bottom:1rem; }
+    .contact-detail-icon { font-size:1.2rem;width:34px;text-align:center;flex-shrink:0; }
+    .contact-detail-text { font-size:.88rem;min-width:0;word-break:break-word; }
+    .contact-detail-text strong { display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);margin-bottom:2px;font-weight:600; }
+    .contact-form { background:var(--card-bg);border:1px solid var(--border);border-radius:20px;padding:2.5rem; }
+    .form-row { display:grid;grid-template-columns:1fr 1fr;gap:1.2rem; }
+    .form-group { margin-bottom:1.3rem; }
+    .form-group label { display:block;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--gray);margin-bottom:.5rem; }
+    .form-group input,.form-group textarea { width:100%;padding:.85rem 1.1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:var(--white);font-family:'Outfit',sans-serif;font-size:.92rem;transition:all .3s;-webkit-appearance:none; }
+    .form-group input::placeholder,.form-group textarea::placeholder { color:rgba(240,244,255,.28); }
+    .form-group input:focus,.form-group textarea:focus { outline:none;border-color:var(--purple);background:rgba(108,75,255,.06); }
+    .form-group textarea { resize:vertical;min-height:130px; }
 
-        /* CTA */
-        .cta-band { padding:6rem 0; }
-        .cta-inner { max-width:1300px; margin:0 auto; padding:4rem 6%; background:linear-gradient(135deg,rgba(108,75,255,.18),rgba(0,229,255,.08)); border:1px solid rgba(108,75,255,.25); border-radius:28px; display:flex; align-items:center; justify-content:space-between; gap:2rem; position:relative; overflow:hidden; }
-        .cta-inner::before { content:''; position:absolute; top:-80px;right:-80px; width:300px;height:300px; background:radial-gradient(circle,rgba(108,75,255,.2),transparent 70%); pointer-events:none; }
-        .cta-text h2 { font-family:'Fraunces',serif; font-weight:700; font-size:clamp(1.5rem,3vw,2.4rem); letter-spacing:-.3px; margin-bottom:.5rem; }
-        .cta-text p { color:var(--gray); font-size:1rem; }
-        .cta-text p a { color:var(--cyan); text-decoration:none; font-weight:600; }
-        .cta-right { display:flex; flex-direction:column; align-items:flex-end; gap:1rem; flex-shrink:0; }
-        .cta-phone { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; color:var(--cyan); white-space:nowrap; }
+    /* ── FOOTER ── */
+    footer { padding:4rem 6% 2rem;border-top:1px solid rgba(255,255,255,.07);background:rgba(5,10,20,.6); }
+    .footer-grid { max-width:1300px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem; }
+    .footer-brand .logo-txt { font-family:'Outfit',sans-serif;font-weight:800;font-size:1.5rem;margin-bottom:1rem;display:block; }
+    .footer-brand .logo-txt span { color:var(--purple); }
+    .footer-brand p { color:var(--gray);font-size:.88rem;line-height:1.75;margin-bottom:1.5rem; }
+    .social-links { display:flex;gap:.8rem; }
+    .social-link { width:38px;height:38px;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700;text-decoration:none;transition:all .3s;color:var(--gray); }
+    .social-link:hover { background:rgba(108,75,255,.15);border-color:rgba(108,75,255,.4);color:var(--white);transform:translateY(-3px); }
+    .footer-col h4 { font-family:'Outfit',sans-serif;font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:1.2rem;color:var(--white); }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:.7rem; }
+    .footer-col ul li a { color:var(--gray);text-decoration:none;font-size:.88rem;transition:color .3s; }
+    .footer-col ul li a:hover { color:var(--white); }
+    .footer-bottom { max-width:1300px;margin:0 auto;padding-top:2rem;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;font-size:.83rem;color:var(--gray); }
 
-        /* CONTACT */
-        .contact { padding:7rem 0; }
-        .contact-grid { display:grid; grid-template-columns:1fr 1.6fr; gap:4rem; align-items:start; }
-        .contact-info-title { font-family:'Fraunces',serif; font-weight:700; font-size:clamp(1.5rem,3vw,2rem); margin-bottom:1rem; }
-        .contact-info-desc { color:var(--gray); line-height:1.75; margin-bottom:2rem; font-size:.97rem; }
-        .contact-detail { display:flex; align-items:center; gap:14px; padding:1rem 1.2rem; background:var(--card-bg); border:1px solid var(--border); border-radius:12px; margin-bottom:1rem; }
-        .contact-detail-icon { font-size:1.2rem; width:34px; text-align:center; flex-shrink:0; }
-        .contact-detail-text { font-size:.88rem; min-width:0; word-break:break-word; }
-        .contact-detail-text strong { display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.5px; color:var(--gray); margin-bottom:2px; font-weight:600; }
-        .contact-form { background:var(--card-bg); border:1px solid var(--border); border-radius:20px; padding:2.5rem; }
-        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
-        .form-group { margin-bottom:1.3rem; }
-        .form-group label { display:block; font-size:.78rem; font-weight:600; text-transform:uppercase; letter-spacing:.8px; color:var(--gray); margin-bottom:.5rem; }
-        .form-group input,.form-group textarea { width:100%; padding:.85rem 1.1rem; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:10px; color:var(--white); font-family:'Outfit',sans-serif; font-size:.92rem; transition:all .3s; -webkit-appearance:none; }
-        .form-group input::placeholder,.form-group textarea::placeholder { color:rgba(240,244,255,.28); }
-        .form-group input:focus,.form-group textarea:focus { outline:none; border-color:var(--purple); background:rgba(108,75,255,.06); }
-        .form-group textarea { resize:vertical; min-height:130px; }
+    /* ── REVEAL ── */
+    .reveal { opacity:0;transform:translateY(28px);transition:all .7s ease; }
+    .reveal.shown { opacity:1;transform:translateY(0); }
 
-        /* FOOTER */
-        footer { padding:4rem 6% 2rem; border-top:1px solid rgba(255,255,255,.07); background:rgba(5,10,20,.6); }
-        .footer-grid { max-width:1300px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; margin-bottom:3rem; }
-        .footer-brand .logo-txt { font-family:'Outfit',sans-serif; font-weight:800; font-size:1.5rem; margin-bottom:1rem; display:block; }
-        .footer-brand .logo-txt span { color:var(--purple); }
-        .footer-brand p { color:var(--gray); font-size:.88rem; line-height:1.75; margin-bottom:1.5rem; }
-        .social-links { display:flex; gap:.8rem; }
-        .social-link { width:38px;height:38px; background:var(--card-bg); border:1px solid var(--border); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:.95rem; font-weight:700; text-decoration:none; transition:all .3s; color:var(--gray); }
-        .social-link:hover { background:rgba(108,75,255,.15); border-color:rgba(108,75,255,.4); color:var(--white); transform:translateY(-3px); }
-        .footer-col h4 { font-family:'Outfit',sans-serif; font-weight:700; font-size:.85rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:1.2rem; color:var(--white); }
-        .footer-col ul { list-style:none; }
-        .footer-col ul li { margin-bottom:.7rem; }
-        .footer-col ul li a { color:var(--gray); text-decoration:none; font-size:.88rem; transition:color .3s; }
-        .footer-col ul li a:hover { color:var(--white); }
-        .footer-bottom { max-width:1300px; margin:0 auto; padding-top:2rem; border-top:1px solid rgba(255,255,255,.07); display:flex; justify-content:space-between; align-items:center; font-size:.83rem; color:var(--gray); }
+    /* ══════════════════════
+       RESPONSIVE
+    ══════════════════════ */
+    @media (max-width:1100px) {
+        .services-grid { grid-template-columns:repeat(2,1fr); }
+        .expertise-grid { grid-template-columns:repeat(2,1fr); }
+        .stats-band { grid-template-columns:repeat(2,1fr); }
+        .why-grid { grid-template-columns:repeat(2,1fr); }
+        .portfolio-grid { grid-template-columns:repeat(2,1fr); }
+        .footer-grid { grid-template-columns:1fr 1fr;gap:2rem; }
+    }
+    @media (max-width:900px) {
+        nav { padding:1rem 5%; }
+        .hero { padding:7rem 5% 4rem; }
+        .hero-inner { grid-template-columns:1fr; }
+        .hero-visual { display:none; }
+        .hero p { max-width:100%; }
+        .contact-grid { grid-template-columns:1fr;gap:2.5rem; }
+        .cta-inner { flex-direction:column;text-align:center;padding:3rem 5%; }
+        .cta-right { align-items:center;width:100%; }
+        .cta-right .btn-primary { width:100%;max-width:320px; }
+        .portfolio-grid { grid-template-columns:repeat(2,1fr); }
+        .contact-form { padding:1.8rem; }
+    }
+    @media (max-width:768px) {
+        .nav-links { display:none;flex-direction:column;position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(11,28,44,.98);backdrop-filter:blur(20px);padding:6rem 8% 3rem;gap:1.5rem;z-index:999;align-items:flex-start;overflow-y:auto; }
+        .nav-links.open { display:flex; }
+        .nav-links li { width:100%; }
+        .nav-links a { font-size:1.3rem;color:var(--white);display:block;padding:.5rem 0;border-bottom:1px solid rgba(108,75,255,.12); }
+        .nav-links a::after { display:none; }
+        .nav-cta { display:block!important;text-align:center;padding:1rem!important;font-size:1.1rem!important;margin-top:1rem;border-radius:12px!important; }
+        .menu-toggle { display:flex; }
+        .services,.about,.portfolio,.why,.contact { padding:5rem 0; }
+        .cta-band { padding:4rem 0; }
+        .section-header { margin-bottom:2.5rem; }
+        .about-intro { margin-bottom:2.5rem; }
+        .container { padding:0 5%; }
+        .services-grid,.expertise-grid { grid-template-columns:1fr;gap:1rem; }
+        .stats-band { grid-template-columns:repeat(2,1fr);gap:.8rem; }
+        .portfolio-grid { grid-template-columns:1fr; }
+        .why-grid { grid-template-columns:repeat(2,1fr);gap:1rem; }
+        .footer-grid { grid-template-columns:1fr;gap:2rem;margin-bottom:2rem; }
+        footer { padding:3rem 5% 1.5rem; }
+        .footer-bottom { flex-direction:column;gap:.5rem;text-align:center;padding-top:1.5rem; }
+        .form-row { grid-template-columns:1fr;gap:0; }
+        .contact-form { padding:1.5rem;border-radius:16px; }
+        .cta-inner { border-radius:18px;padding:2.5rem 5%; }
+    }
+    @media (max-width:480px) {
+        nav { padding:1rem 4%; }
+        .container { padding:0 4%; }
+        .hero { padding:6.5rem 4% 3.5rem; }
+        .hero h1 { font-size:2.1rem; }
+        .hero p { font-size:.97rem; }
+        .hero-btns { flex-direction:column; }
+        .btn-primary,.btn-outline { width:100%;text-align:center; }
+        .section-title { font-size:1.75rem; }
+        .services-grid { grid-template-columns:1fr; }
+        .why-grid { grid-template-columns:1fr; }
+        .stat-num { font-size:2rem; }
+        .cta-inner { padding:2rem 4%; }
+        .cta-text h2 { font-size:1.4rem; }
+        footer { padding:2.5rem 4% 1.5rem; }
+    }
+</style>
+```
 
-        /* REVEAL */
-        .reveal { opacity:0; transform:translateY(28px); transition:all .7s ease; }
-        .reveal.shown { opacity:1; transform:translateY(0); }
-
-        /* RESPONSIVE */
-        @media (max-width:1100px) {
-            .services-grid { grid-template-columns:repeat(2,1fr); }
-            .why-grid { grid-template-columns:repeat(2,1fr); }
-            .portfolio-grid { grid-template-columns:repeat(2,1fr); }
-            .footer-grid { grid-template-columns:1fr 1fr; gap:2rem; }
-            .about-grid { gap:3rem; }
-        }
-        @media (max-width:900px) {
-            nav { padding:1rem 5%; }
-            .hero { padding:7rem 5% 4rem; }
-            .hero-inner { grid-template-columns:1fr; }
-            .hero-visual { display:none; }
-            .hero p { max-width:100%; }
-            .about-grid { grid-template-columns:1fr; gap:2.5rem; }
-            .tech-grid { grid-template-columns:repeat(4,1fr); }
-            .contact-grid { grid-template-columns:1fr; gap:2.5rem; }
-            .cta-inner { flex-direction:column; text-align:center; padding:3rem 5%; }
-            .cta-right { align-items:center; width:100%; }
-            .cta-right .btn-primary { width:100%; max-width:320px; }
-            .portfolio-grid { grid-template-columns:repeat(2,1fr); }
-            .contact-form { padding:1.8rem; }
-        }
-        @media (max-width:768px) {
-            .nav-links { display:none; flex-direction:column; position:fixed; top:0;left:0; width:100%;height:100vh; background:rgba(11,28,44,.98); backdrop-filter:blur(20px); padding:6rem 8% 3rem; gap:1.5rem; z-index:999; align-items:flex-start; justify-content:flex-start; overflow-y:auto; }
-            .nav-links.open { display:flex; }
-            .nav-links li { width:100%; }
-            .nav-links a { font-size:1.3rem; color:var(--white); display:block; padding:.5rem 0; border-bottom:1px solid rgba(108,75,255,.12); }
-            .nav-links a::after { display:none; }
-            .nav-cta { display:block!important; text-align:center; padding:1rem!important; font-size:1.1rem!important; margin-top:1rem; border-radius:12px!important; }
-            .menu-toggle { display:flex; }
-            .services,.about,.portfolio,.why,.contact { padding:5rem 0; }
-            .cta-band { padding:4rem 0; }
-            .section-header { margin-bottom:2.5rem; }
-            .container { padding:0 5%; }
-            .services-grid { grid-template-columns:1fr; gap:1rem; }
-            .service-card { padding:1.8rem 1.5rem; }
-            .stats-row { grid-template-columns:repeat(2,1fr); gap:.8rem; }
-            .stat-box { padding:1.1rem; }
-            .stat-num { font-size:1.9rem; }
-            .tech-grid { grid-template-columns:repeat(3,1fr); gap:.8rem; }
-            .portfolio-grid { grid-template-columns:1fr; }
-            .why-grid { grid-template-columns:repeat(2,1fr); gap:1rem; }
-            .why-card { padding:1.5rem 1.2rem; }
-            .footer-grid { grid-template-columns:1fr; gap:2rem; margin-bottom:2rem; }
-            footer { padding:3rem 5% 1.5rem; }
-            .footer-bottom { flex-direction:column; gap:.5rem; text-align:center; padding-top:1.5rem; }
-            .form-row { grid-template-columns:1fr; gap:0; }
-            .contact-form { padding:1.5rem; border-radius:16px; }
-            .cta-inner { border-radius:18px; padding:2.5rem 5%; }
-            .cta-phone { font-size:1.2rem; }
-            .pitch-block { padding:1.1rem 1.2rem; }
-        }
-        @media (max-width:480px) {
-            nav { padding:1rem 4%; }
-            .container { padding:0 4%; }
-            .hero { padding:6.5rem 4% 3.5rem; }
-            .hero h1 { font-size:2.1rem; letter-spacing:-.3px; }
-            .hero p { font-size:.97rem; }
-            .hero-btns { flex-direction:column; }
-            .btn-primary,.btn-outline { width:100%; text-align:center; }
-            .section-title { font-size:1.75rem; }
-            .services-grid { grid-template-columns:1fr; }
-            .why-grid { grid-template-columns:1fr; }
-            .tech-grid { grid-template-columns:repeat(3,1fr); }
-            .cta-inner { padding:2rem 4%; }
-            .cta-text h2 { font-size:1.4rem; }
-            footer { padding:2.5rem 4% 1.5rem; }
-        }
-        @media (max-width:360px) {
-            .hero h1 { font-size:1.85rem; }
-            .tech-grid { grid-template-columns:repeat(2,1fr); }
-        }
-    </style>
 </head>
 <body>
 
@@ -300,6 +276,7 @@
 <div class="orb orb-3"></div>
 
 <!-- NAV -->
+
 <nav id="navbar">
     <div class="nav-logo">AppWeb<span>+</span></div>
     <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
@@ -313,15 +290,16 @@
 </nav>
 
 <!-- HERO -->
+
 <section id="accueil" class="hero">
     <div class="hero-inner">
         <div class="hero-text">
             <div class="hero-badge">🚀 Agence Digitale — 6+ ans d'expertise</div>
             <h1>Transformez vos idées en<br><span class="grad">solutions digitales</span></h1>
-            <p>Sites web, applications mobiles et design sur mesure — créés par un expert passionné pour propulser votre business vers de nouveaux sommets.</p>
+            <p>Sites web, applications mobiles et design sur mesure — performance, esthétique et innovation au service de votre business.</p>
             <div class="hero-btns">
                 <a href="#contact" class="btn-primary">Commencer un projet</a>
-                <a href="#apropos" class="btn-outline">Découvrir mon expertise</a>
+                <a href="#apropos" class="btn-outline">Découvrir nos expertises</a>
             </div>
         </div>
         <div class="hero-visual">
@@ -332,13 +310,13 @@
                         <span class="mockup-url">appweb.plus/project</span>
                     </div>
                     <div class="mockup-body">
-                        <div class="code-line"><span class="kw">const</span> <span class="fn">agency</span> = <span class="kw">new</span> <span class="fn">AppWebPlus</span>({</div>
-                        <div class="code-line">&nbsp;&nbsp;mission: <span class="str">"Innovation Digitale"</span>,</div>
-                        <div class="code-line">&nbsp;&nbsp;expertise: [<span class="str">'Web'</span>, <span class="str">'Mobile'</span>, <span class="str">'Design'</span>],</div>
-                        <div class="code-line">&nbsp;&nbsp;quality: <span class="str">"Excellence"</span>,</div>
-                        <div class="code-line">&nbsp;&nbsp;clients: <span class="num">50+</span>,</div>
+                        <div class="code-line"><span class="kw">const</span> <span class="fn">project</span> = <span class="kw">new</span> <span class="fn">AppWebPlus</span>({</div>
+                        <div class="code-line">&nbsp;&nbsp;stack: [<span class="str">'Symfony'</span>, <span class="str">'WordPress'</span>, <span class="str">'Shopify'</span>],</div>
+                        <div class="code-line">&nbsp;&nbsp;design: [<span class="str">'Figma'</span>, <span class="str">'Adobe XD'</span>],</div>
+                        <div class="code-line">&nbsp;&nbsp;frontend: [<span class="str">'HTML'</span>, <span class="str">'CSS'</span>, <span class="str">'JS'</span>],</div>
+                        <div class="code-line">&nbsp;&nbsp;versioning: <span class="str">'Git'</span>,</div>
                         <div class="code-line">});</div>
-                        <div class="code-line"><span class="cm">// Prêt à lancer votre projet 🚀</span></div>
+                        <div class="code-line"><span class="cm">// Votre projet entre de bonnes mains 🚀</span></div>
                     </div>
                 </div>
             </div>
@@ -351,6 +329,7 @@
 </section>
 
 <!-- SERVICES -->
+
 <section id="services" class="services">
     <div class="container">
         <div class="section-header center reveal">
@@ -377,104 +356,128 @@
             <div class="service-card reveal">
                 <div class="service-icon-wrap">⚙️</div>
                 <h3>Solutions sur mesure</h3>
-                <p>Développement d'outils métiers, APIs et systèmes adaptés à vos processus uniques.</p>
+                <p>Développement d'outils métiers, APIs et modules adaptés à vos processus uniques.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ABOUT / PRÉSENTATION -->
+<!-- À PROPOS -->
+
 <section id="apropos" class="about">
     <div class="container">
-        <div class="about-grid">
-            <!-- Colonne gauche : texte + stats + tags -->
-            <div class="about-text reveal">
-                <span class="section-label">🚀 Bienvenue chez APP WEB PLUS</span>
-                <h2 class="section-title">Expert en <span class="grad">développement web</span> depuis 6 ans</h2>
 
-                <p>En tant que développeur web chevronné et intégrateur expérimenté, j'offre plus de 6 ans d'expertise dans la création de sites web sur mesure. Mon engagement envers l'excellence se reflète dans l'utilisation des technologies les plus en vogue — WordPress, Symfony et Shopify — assurant des sites performants et esthétiquement plaisants.</p>
+```
+    <!-- Intro centrée -->
+    <div class="about-intro reveal">
+        <span class="section-label">À propos d'AppWeb Plus</span>
+        <h2 class="section-title">Une expertise digitale <span class="grad">complète & éprouvée</span></h2>
+        <p>Depuis plus de 6 ans, AppWeb Plus accompagne entreprises et entrepreneurs dans la création de solutions web performantes. Notre force : maîtriser toute la chaîne — du design à la mise en ligne — avec les technologies qui font vraiment la différence.</p>
+    </div>
 
-                <p>Mon enthousiasme pour le développement web ne connaît pas de limites. Je suis constamment à l'affût des dernières technologies pour perfectionner mes compétences et offrir à mes clients des résultats exceptionnels.</p>
+    <!-- 6 cartes d'expertise -->
+    <div class="expertise-grid">
 
-                <p style="color:var(--purple-light); font-weight:600; font-size:1rem;">🌐 Explorez le futur du web avec APP WEB PLUS — où la performance, l'esthétique et l'innovation se rencontrent !</p>
-
-                <div class="tags-cloud">
-                    <span class="tag">#APPWEBPLUS</span>
-                    <span class="tag">#DéveloppementWeb</span>
-                    <span class="tag">#InnovationDigitale</span>
-                    <span class="tag">#ExcellenceTechnologique</span>
-                </div>
-
-                <div class="stats-row">
-                    <div class="stat-box">
-                        <div class="stat-num">100+</div>
-                        <div class="stat-lbl">Projets réalisés</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-num">6+</div>
-                        <div class="stat-lbl">Années d'expertise</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-num">50+</div>
-                        <div class="stat-lbl">Clients satisfaits</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-num">24/7</div>
-                        <div class="stat-lbl">Support client</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Colonne droite : pitch blocks + tech -->
-            <div class="reveal">
-                <div class="pitch-blocks">
-                    <div class="pitch-block">
-                        <div class="pitch-icon">🌐</div>
-                        <div class="pitch-body">
-                            <h4>Technologies modernes & performantes</h4>
-                            <p>WordPress, Symfony et Shopify — des plateformes robustes pour des sites sécurisés, rapides et faciles à maintenir.</p>
-                        </div>
-                    </div>
-                    <div class="pitch-block">
-                        <div class="pitch-icon">💻</div>
-                        <div class="pitch-body">
-                            <h4>Intégration pixel-perfect</h4>
-                            <p>Je transforme vos maquettes Adobe Illustrator, Adobe XD, Sketch ou Figma en interfaces web fidèles grâce à ma maîtrise de HTML, CSS et JavaScript.</p>
-                        </div>
-                    </div>
-                    <div class="pitch-block">
-                        <div class="pitch-icon">🛠</div>
-                        <div class="pitch-body">
-                            <h4>Modules & fonctionnalités sur mesure</h4>
-                            <p>Je développe des modules personnalisés pour WordPress et Shopify, et gère les projets efficacement avec Git et les outils de versioning modernes.</p>
-                        </div>
-                    </div>
-                    <div class="pitch-block">
-                        <div class="pitch-icon">🔧</div>
-                        <div class="pitch-body">
-                            <h4>Veille technologique permanente</h4>
-                            <p>Toujours à la pointe des dernières innovations pour vous garantir des solutions durables, évolutives et à l'avant-garde du web.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tech-grid">
-                    <div class="tech-pill"><div class="emoji">⚛️</div><span>React</span></div>
-                    <div class="tech-pill"><div class="emoji">📗</div><span>Node.js</span></div>
-                    <div class="tech-pill"><div class="emoji">🐍</div><span>Python</span></div>
-                    <div class="tech-pill"><div class="emoji">🎯</div><span>TypeScript</span></div>
-                    <div class="tech-pill"><div class="emoji">🔥</div><span>Firebase</span></div>
-                    <div class="tech-pill"><div class="emoji">🎨</div><span>Figma</span></div>
-                    <div class="tech-pill"><div class="emoji">📊</div><span>MongoDB</span></div>
-                    <div class="tech-pill"><div class="emoji">🚀</div><span>Next.js</span></div>
-                    <div class="tech-pill"><div class="emoji">💚</div><span>Vue.js</span></div>
-                </div>
+        <div class="expertise-card reveal">
+            <div class="expertise-icon">🌐</div>
+            <h3>Développement CMS & E-commerce</h3>
+            <p>Nous créons des sites robustes et évolutifs sur les plateformes les plus utilisées au monde. Boutiques en ligne, sites d'entreprise, blogs professionnels — livrés clé en main.</p>
+            <div class="tech-row">
+                <span class="tech-badge">WordPress</span>
+                <span class="tech-badge">Shopify</span>
+                <span class="tech-badge">WooCommerce</span>
             </div>
         </div>
+
+        <div class="expertise-card reveal">
+            <div class="expertise-icon">⚙️</div>
+            <h3>Développement back-end Symfony</h3>
+            <p>Pour les projets qui demandent de la puissance : applications métier, APIs RESTful, portails sur mesure. Symfony nous permet de bâtir des architectures solides, sécurisées et maintenables.</p>
+            <div class="tech-row">
+                <span class="tech-badge">Symfony</span>
+                <span class="tech-badge">PHP</span>
+                <span class="tech-badge">API REST</span>
+                <span class="tech-badge">MySQL</span>
+            </div>
+        </div>
+
+        <div class="expertise-card reveal">
+            <div class="expertise-icon">🎨</div>
+            <h3>Intégration pixel-perfect</h3>
+            <p>Votre maquette devient un site réel, fidèle au pixel près. Nous travaillons directement depuis vos fichiers de design pour une intégration propre et sans compromis.</p>
+            <div class="tech-row">
+                <span class="tech-badge cyan">Figma</span>
+                <span class="tech-badge cyan">Adobe XD</span>
+                <span class="tech-badge cyan">Sketch</span>
+                <span class="tech-badge cyan">Illustrator</span>
+            </div>
+        </div>
+
+        <div class="expertise-card reveal">
+            <div class="expertise-icon">💻</div>
+            <h3>Front-end moderne & responsive</h3>
+            <p>Des interfaces fluides, rapides et accessibles sur tous les écrans. Nous codons avec les standards les plus récents pour des expériences utilisateur qui convertissent.</p>
+            <div class="tech-row">
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">React</span>
+                <span class="tech-badge">Vue.js</span>
+            </div>
+        </div>
+
+        <div class="expertise-card reveal">
+            <div class="expertise-icon">🛒</div>
+            <h3>Modules & extensions sur mesure</h3>
+            <p>Votre boutique ou votre site a besoin de fonctionnalités uniques ? Nous développons des modules personnalisés pour WordPress et Shopify qui s'adaptent parfaitement à vos besoins métier.</p>
+            <div class="tech-row">
+                <span class="tech-badge">Plugins WordPress</span>
+                <span class="tech-badge">Apps Shopify</span>
+                <span class="tech-badge">Hooks & APIs</span>
+            </div>
+        </div>
+
+        <div class="expertise-card reveal">
+            <div class="expertise-icon">🔧</div>
+            <h3>Gestion de projet & versioning</h3>
+            <p>Chaque projet est suivi rigoureusement : gestion de versions avec Git, collaboration fluide, déploiements sécurisés. Vous avez une visibilité totale sur l'avancement à chaque étape.</p>
+            <div class="tech-row">
+                <span class="tech-badge">Git</span>
+                <span class="tech-badge">GitHub / GitLab</span>
+                <span class="tech-badge">CI/CD</span>
+                <span class="tech-badge">Agile</span>
+            </div>
+        </div>
+
     </div>
+
+    <!-- Stats -->
+    <div class="stats-band reveal">
+        <div class="stat-box">
+            <div class="stat-num">100+</div>
+            <div class="stat-lbl">Projets livrés</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-num">6+</div>
+            <div class="stat-lbl">Années d'expérience</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-num">50+</div>
+            <div class="stat-lbl">Clients satisfaits</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-num">24/7</div>
+            <div class="stat-lbl">Support client</div>
+        </div>
+    </div>
+
+</div>
+```
+
 </section>
 
 <!-- PORTFOLIO -->
+
 <section id="portfolio" class="portfolio">
     <div class="container">
         <div class="section-header center reveal">
@@ -486,49 +489,49 @@
             <div class="project-card reveal">
                 <div class="project-thumb"><div class="project-thumb-bg thumb-1">🛒</div></div>
                 <div class="project-info">
-                    <div class="project-tag">E-Commerce</div>
+                    <div class="project-tag">E-Commerce · Shopify</div>
                     <h3>Boutique en ligne Premium</h3>
-                    <p>Plateforme e-commerce complète avec paiement intégré, gestion des stocks et panel admin.</p>
+                    <p>Boutique Shopify sur mesure avec module de paiement intégré, gestion des stocks et panel admin personnalisé.</p>
                 </div>
             </div>
             <div class="project-card reveal">
                 <div class="project-thumb"><div class="project-thumb-bg thumb-2">📊</div></div>
                 <div class="project-info">
-                    <div class="project-tag">Dashboard SaaS</div>
-                    <h3>Analytics Dashboard</h3>
-                    <p>Interface de gestion avec tableaux de bord interactifs, rapports en temps réel et exports.</p>
+                    <div class="project-tag">Application · Symfony</div>
+                    <h3>Plateforme SaaS Analytics</h3>
+                    <p>Application métier Symfony avec tableaux de bord interactifs, gestion des rôles et exports automatisés.</p>
                 </div>
             </div>
             <div class="project-card reveal">
                 <div class="project-thumb"><div class="project-thumb-bg thumb-3">🏥</div></div>
                 <div class="project-info">
-                    <div class="project-tag">Application Mobile</div>
+                    <div class="project-tag">Mobile · React Native</div>
                     <h3>App Santé & Wellness</h3>
-                    <p>Application mobile cross-platform de suivi santé avec notifications intelligentes.</p>
+                    <p>Application mobile cross-platform intégrée depuis une maquette Figma, avec suivi et notifications.</p>
                 </div>
             </div>
             <div class="project-card reveal">
                 <div class="project-thumb"><div class="project-thumb-bg thumb-4">🍕</div></div>
                 <div class="project-info">
-                    <div class="project-tag">Restaurant</div>
-                    <h3>Système de Commande</h3>
-                    <p>Solution digitale de commande en ligne et gestion de livraison pour restaurants.</p>
+                    <div class="project-tag">Restaurant · WordPress</div>
+                    <h3>Système de Commande en ligne</h3>
+                    <p>Site WordPress avec plugin de commande sur mesure, gestion de menus et intégration livraison.</p>
                 </div>
             </div>
             <div class="project-card reveal">
                 <div class="project-thumb"><div class="project-thumb-bg thumb-5">🎓</div></div>
                 <div class="project-info">
-                    <div class="project-tag">EdTech</div>
+                    <div class="project-tag">EdTech · WordPress</div>
                     <h3>Plateforme E-learning</h3>
-                    <p>LMS complet avec cours vidéo, quiz interactifs, certificats et suivi de progression.</p>
+                    <p>LMS WordPress avec cours vidéo, quiz interactifs, certificats et suivi de progression étudiant.</p>
                 </div>
             </div>
             <div class="project-card reveal">
                 <div class="project-thumb"><div class="project-thumb-bg thumb-6">🏢</div></div>
                 <div class="project-info">
-                    <div class="project-tag">Corporate</div>
+                    <div class="project-tag">Corporate · Intégration Figma</div>
                     <h3>Site Vitrine Corporate</h3>
-                    <p>Site vitrine premium avec animations 3D, multilangue et performance maximale.</p>
+                    <p>Intégration pixel-perfect d'une maquette Adobe XD en site vitrine multilingue, performant et animé.</p>
                 </div>
             </div>
         </div>
@@ -536,6 +539,7 @@
 </section>
 
 <!-- WHY US -->
+
 <section class="why">
     <div class="container">
         <div class="section-header center reveal">
@@ -555,25 +559,26 @@
             </div>
             <div class="why-card reveal">
                 <div class="why-icon">🛡️</div>
-                <h3>Support client</h3>
-                <p>Accompagnement personnalisé avant, pendant et après la livraison. Vous n'êtes jamais seul.</p>
+                <h3>Support continu</h3>
+                <p>Accompagnement avant, pendant et après la livraison. Maintenance, mises à jour, évolutions.</p>
             </div>
             <div class="why-card reveal">
                 <div class="why-icon">🎯</div>
-                <h3>Solutions sur mesure</h3>
-                <p>Chaque projet est unique. Nous adaptons nos solutions à votre activité et vos objectifs.</p>
+                <h3>100% sur mesure</h3>
+                <p>Aucun template générique. Chaque projet est conçu spécifiquement pour votre activité.</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- CTA BAND -->
+
 <section class="cta-band">
     <div class="container">
         <div class="cta-inner reveal">
             <div class="cta-text">
-                <h2>Explorez le futur du web avec APP WEB PLUS</h2>
-                <p>Performance, esthétique et innovation — <a href="tel:+21625789309">appelez-nous maintenant</a> ou remplissez le formulaire.</p>
+                <h2>Prêt à lancer votre projet ?</h2>
+                <p>Parlons de vos besoins. <a href="tel:+21625789309">Appelez-nous</a> ou remplissez le formulaire — réponse sous 24h.</p>
             </div>
             <div class="cta-right">
                 <div class="cta-phone">+216 25 789 309</div>
@@ -584,13 +589,14 @@
 </section>
 
 <!-- CONTACT -->
+
 <section id="contact" class="contact">
     <div class="container">
         <div class="contact-grid">
             <div class="reveal">
                 <span class="section-label">Contact</span>
                 <h2 class="contact-info-title">Discutons de votre <span class="grad">projet</span></h2>
-                <p class="contact-info-desc">Prêt à démarrer ? Décrivez-nous votre projet et nous vous répondons sous 24h.</p>
+                <p class="contact-info-desc">Décrivez-nous votre besoin et nous vous répondons sous 24h avec une proposition adaptée.</p>
                 <div class="contact-detail">
                     <span class="contact-detail-icon">📧</span>
                     <div class="contact-detail-text"><strong>Email</strong>contact@appwebplus.tn</div>
@@ -638,11 +644,12 @@
 </section>
 
 <!-- FOOTER -->
+
 <footer>
     <div class="footer-grid">
         <div class="footer-brand">
             <span class="logo-txt">AppWeb<span>+</span></span>
-            <p>Votre partenaire pour l'excellence digitale. Développement web, mobile et design graphique de qualité supérieure — où performance, esthétique et innovation se rencontrent.</p>
+            <p>Votre partenaire pour l'excellence digitale. Développement web, e-commerce et intégration sur mesure depuis plus de 6 ans en Tunisie.</p>
             <div class="social-links">
                 <a class="social-link" href="#" title="Facebook">f</a>
                 <a class="social-link" href="#" title="Instagram">in</a>
@@ -654,8 +661,8 @@
             <ul>
                 <li><a href="#services">Sites Web</a></li>
                 <li><a href="#services">Applications Mobile</a></li>
-                <li><a href="#services">Design Graphique</a></li>
-                <li><a href="#services">Solutions Digitales</a></li>
+                <li><a href="#services">Design & Intégration</a></li>
+                <li><a href="#services">Solutions Sur Mesure</a></li>
             </ul>
         </div>
         <div class="footer-col">
@@ -682,16 +689,17 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 <script>
 (function(){ emailjs.init("e0EVNmHRD2LewftW_"); })();
 
 const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.getElementById('navLinks');
+const navLinks   = document.getElementById('navLinks');
 
 menuToggle.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    menuToggle.classList.toggle('open', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    const open = navLinks.classList.toggle('open');
+    menuToggle.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
 });
 document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => {
@@ -710,34 +718,38 @@ document.addEventListener('click', e => {
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
         const t = document.querySelector(a.getAttribute('href'));
-        if(t){ e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior:'smooth' }); }
+        if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior:'smooth' }); }
     });
 });
 const io = new IntersectionObserver(entries => {
-    entries.forEach(en => { if(en.isIntersecting) en.target.classList.add('shown'); });
+    entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('shown'); });
 }, { threshold:.08, rootMargin:'0px 0px -30px 0px' });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 window.addEventListener('scroll', () => {
-    let cur='';
-    document.querySelectorAll('section[id]').forEach(s => { if(window.scrollY >= s.offsetTop-200) cur=s.id; });
-    document.querySelectorAll('.nav-links a').forEach(a => { a.classList.remove('active'); if(a.getAttribute('href')==='#'+cur) a.classList.add('active'); });
+    let cur = '';
+    document.querySelectorAll('section[id]').forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => { a.classList.remove('active'); if (a.getAttribute('href') === '#' + cur) a.classList.add('active'); });
 });
 
-document.getElementById('contactForm').addEventListener('submit', function(e){
+document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const btn = document.getElementById('send_message');
-    btn.textContent='Envoi en cours...'; btn.disabled=true;
-    emailjs.sendForm('service_5ursgre','template_hwemskj',this)
-        .then(()=>{
-            btn.textContent='✓ Message envoyé!'; btn.style.background='linear-gradient(135deg,#27C93F,#1fa832)';
+    btn.textContent = 'Envoi en cours...'; btn.disabled = true;
+    emailjs.sendForm('service_5ursgre', 'template_hwemskj', this)
+        .then(() => {
+            btn.textContent = '✓ Message envoyé !';
+            btn.style.background = 'linear-gradient(135deg,#27C93F,#1fa832)';
             this.reset();
-            setTimeout(()=>{ btn.textContent='Envoyer le message →'; btn.style.background=''; btn.disabled=false; },3000);
-        },()=>{
-            btn.textContent='✕ Erreur — réessayez'; btn.style.background='linear-gradient(135deg,#FF5F56,#cc4a43)'; btn.disabled=false;
-            setTimeout(()=>{ btn.textContent='Envoyer le message →'; btn.style.background=''; },3000);
+            setTimeout(() => { btn.textContent = 'Envoyer le message →'; btn.style.background = ''; btn.disabled = false; }, 3000);
+        }, () => {
+            btn.textContent = '✕ Erreur — réessayez';
+            btn.style.background = 'linear-gradient(135deg,#FF5F56,#cc4a43)';
+            btn.disabled = false;
+            setTimeout(() => { btn.textContent = 'Envoyer le message →'; btn.style.background = ''; }, 3000);
         });
 });
 </script>
+
 </body>
 </html>
