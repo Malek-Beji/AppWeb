@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AppWeb Plus — Solutions Digitales Premium</title>
+<meta name="description" content="AppWeb Plus — Agence digitale. Création de sites web, e-commerce, applications, design & intégration. Découvrez nos projets et contactez-nous.">
+<meta name="theme-color" content="#08090d">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2064%2064'%3E%3Crect%20x%3D'6'%20y%3D'6'%20width%3D'52'%20height%3D'52'%20rx%3D'14'%20fill%3D'%2308090d'/%3E%3Cpath%20d%3D'M22%2044V20h9.6c6.7%200%2011%203.2%2011%209.1%200%205.9-4.3%209-11%209H27.3V44H22zm5.3-10.2h4.3c3.8%200%205.8-1.6%205.8-4.7%200-3.2-2-4.9-5.8-4.9h-4.3v9.6z'%20fill%3D'%23c8a96e'/%3E%3Cpath%20d%3D'M45.8%2041.8h-3.2v-3.1h-3.1v-3.2h3.1v-3.1h3.2v3.1h3.1v3.2h-3.1v3.1z'%20fill%3D'%23c8a96e'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -436,11 +439,147 @@ section { position:relative; z-index:1; }
   border-radius:4px; overflow:hidden;
   transition:all .45s cubic-bezier(.4,0,.2,1);
   position:relative;
+  isolation:isolate;
 }
-.proj-card:hover { border-color:rgba(200,169,110,.25); transform:translateY(-6px); box-shadow:0 30px 80px rgba(0,0,0,.5); }
+.proj-card::before{
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(80% 60% at 20% 0%, rgba(200,169,110,.08), transparent 60%),
+              radial-gradient(60% 60% at 100% 100%, rgba(139,115,72,.09), transparent 55%);
+  opacity:.65;
+  z-index:-1;
+}
+.proj-card:hover { border-color:rgba(200,169,110,.25); transform:translateY(-7px); box-shadow:0 34px 90px rgba(0,0,0,.55); }
 
 .proj-thumb {
-  height:220px; overflow:hidden; position:relative;
+  overflow:hidden;
+  position:relative;
+  cursor:pointer;
+  aspect-ratio: 16 / 10;
+  background: rgba(255,255,255,.02);
+}
+.proj-thumb::after{
+  content:'';
+  position:absolute; inset:0;
+  background: linear-gradient(to top, rgba(8,9,13,.75), rgba(8,9,13,.15) 55%, transparent);
+  pointer-events:none;
+}
+.proj-thumb img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transform:scale(1);
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+  filter:saturate(1.05) contrast(1.05);
+}
+.proj-cta{
+  text-decoration:none;
+  position:absolute; left:16px; bottom:16px;
+  padding:.45rem .85rem;
+  background:rgba(8,9,13,.7);
+  border:1px solid var(--border-m);
+  border-radius:3px;
+  font-family:var(--mono);
+  font-size:.65rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--white);
+  opacity:0;
+  transform:translateY(8px);
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+  z-index:2;
+}
+
+/* ── PROJECT MODAL ── */
+.modal{
+  position:fixed; inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+  padding:4rem 5%;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .25s ease, visibility .25s ease;
+}
+.modal.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.modal-backdrop{
+  position:absolute; inset:0;
+  background:rgba(8,9,13,.72);
+  backdrop-filter: blur(10px) saturate(140%);
+  opacity:0;
+  transition:opacity .25s ease;
+}
+.modal.open .modal-backdrop{ opacity:1; }
+.modal-dialog{
+  position:relative;
+  width:min(980px, 100%);
+  max-height: calc(100vh - 8rem);
+  overflow:auto;
+  background:var(--ink-soft);
+  border:1px solid var(--border-m);
+  border-radius:10px;
+  box-shadow:0 40px 120px rgba(0,0,0,.65);
+  transform: translateY(16px) scale(.985);
+  opacity:0;
+  transition:transform .28s cubic-bezier(.2,.8,.2,1), opacity .25s ease;
+}
+.modal.open .modal-dialog{ transform: translateY(0) scale(1); opacity:1; }
+.modal-inner{
+  display:grid;
+  grid-template-columns: 1.2fr 1fr;
+}
+.modal-media{
+  min-height:320px;
+  background:rgba(255,255,255,.02);
+  border-right:1px solid var(--border);
+}
+.modal-media img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+.modal-content{
+  padding:2.2rem 2.2rem 2rem;
+}
+.modal-title{
+  font-family:var(--serif);
+  font-size:2rem;
+  letter-spacing:-.5px;
+  line-height:1.1;
+  margin-bottom:1rem;
+}
+.modal-desc{
+  color:var(--muted);
+  line-height:1.85;
+  font-weight:300;
+  margin-bottom:1.4rem;
+}
+.modal-actions{
+  display:flex; gap:1rem; flex-wrap:wrap;
+  margin-top:1.4rem;
+}
+.modal-actions a{
+  text-decoration:none;
+}
+.modal-close{
+  position:absolute;
+  top:14px; right:14px;
+  width:42px; height:42px;
+  border-radius:10px;
+  border:1px solid var(--border-m);
+  background:rgba(255,255,255,.03);
+  color:var(--white);
+  font-size:1.4rem;
+  cursor:pointer;
+}
+.modal-close:hover{ border-color:rgba(200,169,110,.35); color:var(--accent); }
+
+@media(max-width:900px){
+  .modal{ padding:5rem 4%; }
+  .modal-inner{ grid-template-columns: 1fr; }
+  .modal-media{ border-right:none; border-bottom:1px solid var(--border); }
 }
 .proj-thumb-bg {
   width:100%; height:100%;
@@ -453,6 +592,8 @@ section { position:relative; z-index:1; }
   background:linear-gradient(to top, rgba(8,9,13,.6), transparent);
 }
 .proj-card:hover .proj-thumb-bg { transform:scale(1.08); }
+.proj-card:hover .proj-thumb img { transform:scale(1.08); }
+.proj-card:hover .proj-cta { opacity:1; transform:translateY(0); }
 .p1{background:linear-gradient(135deg,#0e0520,#261055);}
 .p2{background:linear-gradient(135deg,#060f1a,#0a2540);}
 .p3{background:linear-gradient(135deg,#08190e,#0f3020);}
@@ -469,6 +610,19 @@ section { position:relative; z-index:1; }
 .proj-year { font-family:var(--mono); font-size:.62rem; color:var(--muted); }
 .proj-info h3 { font-family:var(--serif); font-size:1.1rem; margin-bottom:.5rem; line-height:1.2; }
 .proj-info p { color:var(--muted); font-size:.83rem; line-height:1.65; font-weight:300; }
+
+.proj-tags{ display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1rem; }
+.proj-pill{
+  padding:.2rem .7rem;
+  border:1px solid var(--border-m);
+  border-radius:2px;
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--muted);
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
 
 .proj-card-large {
   grid-column: span 2;
@@ -968,52 +1122,135 @@ footer {
     </div>
 
     <div class="portfolio-grid reveal">
-      <div class="proj-card proj-card-large">
-        <div class="proj-thumb"><div class="proj-thumb-bg p1">🛒</div></div>
-        <div class="proj-info">
-          <div class="proj-meta"><span class="proj-tag-label">E-Commerce · Shopify</span><span class="proj-year">2024</span></div>
-          <h3>Boutique Premium En Ligne</h3>
-          <p>Boutique Shopify sur mesure avec module de paiement intégré, gestion des stocks et panel admin personnalisé.</p>
-        </div>
-      </div>
+      <!-- TileO Dubai (data sourced from Portfolio-new-portfolio (1)/Portfolio-new-portfolio/index.html) -->
       <div class="proj-card">
-        <div class="proj-thumb"><div class="proj-thumb-bg p2">📊</div></div>
+        <div class="proj-thumb" data-project-id="tileo">
+          <img src="tileo.PNG" alt="TileO Dubai">
+          <a class="proj-cta" href="https://en.tileo.ae/" target="_blank" rel="noopener">Voir le site →</a>
+        </div>
         <div class="proj-info">
-          <div class="proj-meta"><span class="proj-tag-label">SaaS · Symfony</span><span class="proj-year">2024</span></div>
-          <h3>Plateforme Analytics</h3>
-          <p>Application Symfony avec tableaux de bord interactifs et exports automatisés.</p>
+          <div class="proj-meta"><span class="proj-tag-label">WordPress · E-commerce</span></div>
+          <h3>TileO Dubai</h3>
+          <p>Premium e-commerce platform for tiles, slabs, and sanitary ware in Dubai. Features multilingual support, advanced product catalog with filtering, custom WordPress theme, and integrated e-catalog browsing system.</p>
+          <div class="proj-tags">
+            <span class="proj-pill">WordPress</span>
+            <span class="proj-pill">E-commerce</span>
+            <span class="proj-pill">Multilingual</span>
+            <span class="proj-pill">Custom Theme</span>
+            <span class="proj-pill">Product Catalog</span>
+          </div>
         </div>
       </div>
+
+      <!-- Karma Fitout -->
       <div class="proj-card">
-        <div class="proj-thumb"><div class="proj-thumb-bg p3">🏥</div></div>
+        <div class="proj-thumb" data-project-id="karmafitout">
+          <img src="karmafitout.PNG" alt="Karma Fitout">
+          <a class="proj-cta" href="https://karmafitout.ae/" target="_blank" rel="noopener">Voir le site →</a>
+        </div>
         <div class="proj-info">
-          <div class="proj-meta"><span class="proj-tag-label">Mobile · React Native</span><span class="proj-year">2023</span></div>
-          <h3>App Santé & Wellness</h3>
-          <p>Application mobile cross-platform depuis une maquette Figma, avec suivi et notifications.</p>
+          <div class="proj-meta"><span class="proj-tag-label">WordPress · Fitout</span></div>
+          <h3>Karma Fitout</h3>
+          <p>Professional fitout company website showcasing interior design services and completed projects. Built with custom WordPress theme, featuring project galleries, service showcases, and appointment booking system.</p>
+          <div class="proj-tags">
+            <span class="proj-pill">WordPress</span>
+            <span class="proj-pill">Custom Theme</span>
+            <span class="proj-pill">Project Gallery</span>
+            <span class="proj-pill">Booking System</span>
+            <span class="proj-pill">Responsive</span>
+          </div>
         </div>
       </div>
+
+      <!-- Besimmo Real Estate -->
       <div class="proj-card">
-        <div class="proj-thumb"><div class="proj-thumb-bg p4">🍕</div></div>
+        <div class="proj-thumb" data-project-id="besimmo">
+          <img src="bessimo.PNG" alt="Besimmo Real Estate">
+          <a class="proj-cta" href="https://besimmo.be/" target="_blank" rel="noopener">Voir le site →</a>
+        </div>
         <div class="proj-info">
-          <div class="proj-meta"><span class="proj-tag-label">Restaurant · WordPress</span><span class="proj-year">2023</span></div>
-          <h3>Commande En Ligne</h3>
-          <p>Site WordPress avec plugin de commande sur mesure et intégration livraison.</p>
+          <div class="proj-meta"><span class="proj-tag-label">WordPress · Immobilier</span></div>
+          <h3>Besimmo Real Estate</h3>
+          <p>Full-featured real estate platform for property listings in Belgium and international markets. Includes advanced search filters, property management system, estimation tools, and multilingual support.</p>
+          <div class="proj-tags">
+            <span class="proj-pill">Real Estate</span>
+            <span class="proj-pill">WordPress</span>
+            <span class="proj-pill">Property Listings</span>
+            <span class="proj-pill">Search System</span>
+            <span class="proj-pill">Multilingual</span>
+          </div>
         </div>
       </div>
-      <div class="proj-card proj-card-large">
-        <div class="proj-thumb"><div class="proj-thumb-bg p5" style="font-size:3rem">🎓</div></div>
-        <div class="proj-info">
-          <div class="proj-meta"><span class="proj-tag-label">EdTech · WordPress</span><span class="proj-year">2023</span></div>
-          <h3>Plateforme E-learning Premium</h3>
-          <p>LMS WordPress avec cours vidéo, quiz interactifs, certificats automatisés et suivi de progression étudiant complet.</p>
-        </div>
-      </div>
+
+      <!-- ServiHealth -->
       <div class="proj-card">
-        <div class="proj-thumb"><div class="proj-thumb-bg p6">🏢</div></div>
+        <div class="proj-thumb" data-project-id="servihealth">
+          <img src="servihealth.png" alt="ServiHealth">
+          <a class="proj-cta" href="https://servihealth.net/" target="_blank" rel="noopener">Voir le site →</a>
+        </div>
         <div class="proj-info">
-          <div class="proj-meta"><span class="proj-tag-label">Corporate · Figma</span><span class="proj-year">2022</span></div>
-          <h3>Site Vitrine Corporate</h3>
-          <p>Intégration pixel-perfect d'une maquette Adobe XD, multilingue et animée.</p>
+          <div class="proj-meta"><span class="proj-tag-label">Santé · Chirurgie esthétique</span></div>
+          <h3>ServiHealth</h3>
+          <p>Chirurgie esthétique en Tunisie avec ServiHealth et Dr Djemal à la clinique Myron. Prise en charge complète pour des résultats exceptionnels.</p>
+          <div class="proj-tags">
+            <span class="proj-pill">Healthcare</span>
+            <span class="proj-pill">SEO</span>
+            <span class="proj-pill">WordPress</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabibi.tn -->
+      <div class="proj-card">
+        <div class="proj-thumb" data-project-id="tabibi">
+          <img src="tabibi.png" alt="Tabibi.tn">
+          <a class="proj-cta" href="https://tabibi.tn/" target="_blank" rel="noopener">Voir le site →</a>
+        </div>
+        <div class="proj-info">
+          <div class="proj-meta"><span class="proj-tag-label">Santé · Annuaire médical</span></div>
+          <h3>Tabibi.tn</h3>
+          <p>Trouvez rapidement un médecin, un dentiste, un laboratoire d'analyses ou la pharmacie la plus proche en Tunisie.</p>
+          <div class="proj-tags">
+            <span class="proj-pill">Directory</span>
+            <span class="proj-pill">Search</span>
+            <span class="proj-pill">Healthcare</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Novaplex -->
+      <div class="proj-card">
+        <div class="proj-thumb" data-project-id="novaplex">
+          <img src="https://novaplex.tn/wp-content/themes/novaplex/assets/inc/images/og-image.jpeg" alt="Novaplex">
+          <a class="proj-cta" href="https://novaplex.tn/" target="_blank" rel="noopener">Voir le site →</a>
+        </div>
+        <div class="proj-info">
+          <div class="proj-meta"><span class="proj-tag-label">E-commerce · Impression</span></div>
+          <h3>Novaplex</h3>
+          <p>Boutique en ligne dédiée à l’impression et la signalétique : cartes de visite, flyers, papier en-tête, plaques, et produits personnalisés.</p>
+          <div class="proj-tags">
+            <span class="proj-pill">E-commerce</span>
+            <span class="proj-pill">Printing</span>
+            <span class="proj-pill">Catalog</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Evocraft Formation -->
+      <div class="proj-card">
+        <div class="proj-thumb" data-project-id="evocraft">
+          <img src="evo-craft.png" alt="Evocraft Formation">
+          <a class="proj-cta" href="https://evocraft-formation.fr/" target="_blank" rel="noopener">Voir le site →</a>
+        </div>
+        <div class="proj-info">
+          <div class="proj-meta"><span class="proj-tag-label">Formation · Langues</span></div>
+          <h3>Evocraft Formation</h3>
+          <p>Centre de formation proposant des cours de français et d’anglais, adaptés à tous les niveaux, avec sessions et certifications.</p>
+          <div class="proj-tags">
+            <span class="proj-pill">Training</span>
+            <span class="proj-pill">French</span>
+            <span class="proj-pill">English</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1224,6 +1461,29 @@ footer {
   </div>
 </footer>
 
+<!-- ══ PROJECT MODAL ══ -->
+<div class="modal" id="projectModal" aria-hidden="true">
+  <div class="modal-backdrop" data-modal-close></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" type="button" data-modal-close aria-label="Fermer">×</button>
+    <div class="modal-inner">
+      <div class="modal-media">
+        <img id="modalImage" src="" alt="">
+      </div>
+      <div class="modal-content">
+        <div class="s-label" style="margin-bottom:.9rem">Projet</div>
+        <h3 class="modal-title" id="modalTitle"></h3>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="proj-tags" id="modalTags"></div>
+        <div class="modal-actions">
+          <a class="btn-primary" id="modalVisit" href="#" target="_blank" rel="noopener">Voir le site</a>
+          <button class="btn-ghost" type="button" data-modal-close>Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
 (function(){ emailjs.init("e0EVNmHRD2LewftW_"); })();
@@ -1303,6 +1563,122 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       setTimeout(() => { btn.textContent = 'Envoyer le message →'; btn.style.background = ''; btn.style.borderColor = ''; btn.style.color = ''; }, 3500);
     });
 });
+
+/* ── PROJECT MODAL ── */
+const PROJECTS = {
+  tileo: {
+    title: 'TileO Dubai',
+    url: 'https://en.tileo.ae/',
+    image: 'tileo.PNG',
+    description: "Premium e-commerce platform for tiles, slabs, and sanitary ware in Dubai. Features multilingual support, advanced product catalog with filtering, custom WordPress theme, and integrated e-catalog browsing system.",
+    tags: ['WordPress','E-commerce','Multilingual','Custom Theme','Product Catalog']
+  },
+  karmafitout: {
+    title: 'Karma Fitout',
+    url: 'https://karmafitout.ae/',
+    image: 'karmafitout.PNG',
+    description: 'Professional fitout company website showcasing interior design services and completed projects. Built with custom WordPress theme, featuring project galleries, service showcases, and appointment booking system.',
+    tags: ['WordPress','Custom Theme','Project Gallery','Booking System','Responsive']
+  },
+  besimmo: {
+    title: 'Besimmo Real Estate',
+    url: 'https://besimmo.be/',
+    image: 'bessimo.PNG',
+    description: 'Full-featured real estate platform for property listings in Belgium and international markets. Includes advanced search filters, property management system, estimation tools, and multilingual support.',
+    tags: ['Real Estate','WordPress','Property Listings','Search System','Multilingual']
+  },
+  servihealth: {
+    title: 'ServiHealth',
+    url: 'https://servihealth.net/',
+    image: 'servihealth.png',
+    description: 'Chirurgie esthétique en Tunisie avec ServiHealth et Dr Djemal à la clinique Myron. Prise en charge complète pour des résultats exceptionnels.',
+    tags: ['Healthcare','SEO','WordPress']
+  },
+  tabibi: {
+    title: 'Tabibi.tn',
+    url: 'https://tabibi.tn/',
+    image: 'tabibi.png',
+    description: "Trouvez rapidement un médecin, un dentiste, un laboratoire d'analyses ou la pharmacie la plus proche en Tunisie.",
+    tags: ['Directory','Search','Healthcare']
+  },
+  novaplex: {
+    title: 'Novaplex',
+    url: 'https://novaplex.tn/',
+    image: 'https://novaplex.tn/wp-content/themes/novaplex/assets/inc/images/og-image.jpeg',
+    description: "Boutique en ligne dédiée à l’impression et la signalétique : cartes de visite, flyers, papier en-tête, plaques, et produits personnalisés.",
+    tags: ['E-commerce','Printing','Catalog']
+  },
+  evocraft: {
+    title: 'Evocraft Formation',
+    url: 'https://evocraft-formation.fr/',
+    image: 'evo-craft.png',
+    description: "Centre de formation proposant des cours de français et d’anglais, adaptés à tous les niveaux, avec sessions et certifications.",
+    tags: ['Training','French','English']
+  }
+};
+
+const modal = document.getElementById('projectModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalTags = document.getElementById('modalTags');
+const modalVisit = document.getElementById('modalVisit');
+const modalImage = document.getElementById('modalImage');
+
+let lastFocus = null;
+
+function openProjectModal(id){
+  const p = PROJECTS[id];
+  if(!p) return;
+  lastFocus = document.activeElement;
+
+  modalTitle.textContent = p.title;
+  modalDesc.textContent = p.description;
+  modalVisit.href = p.url;
+  modalImage.src = p.image;
+  modalImage.alt = p.title;
+  modalTags.innerHTML = (p.tags || []).map(t => `<span class="proj-pill">${t}</span>`).join('');
+
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  const closeBtn = modal.querySelector('.modal-close');
+  if(closeBtn) closeBtn.focus();
+}
+
+function closeProjectModal(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  if(lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+}
+
+document.querySelectorAll('.proj-thumb[data-project-id]').forEach(thumb => {
+  thumb.addEventListener('click', (e) => {
+    // If user clicked on the "Voir le site" link, do not open modal
+    if(e.target && e.target.closest && e.target.closest('.proj-cta')) return;
+    openProjectModal(thumb.getAttribute('data-project-id'));
+  });
+  thumb.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      openProjectModal(thumb.getAttribute('data-project-id'));
+    }
+  });
+  // Make it keyboard-focusable
+  thumb.setAttribute('tabindex','0');
+  thumb.setAttribute('role','button');
+});
+
+// close actions
+modal.querySelectorAll('[data-modal-close]').forEach(el => el.addEventListener('click', closeProjectModal));
+document.addEventListener('keydown', (e) => {
+  if(modal.classList.contains('open') && e.key === 'Escape') closeProjectModal();
+});
+
+// prevent modal open when clicking project CTA
+document.querySelectorAll('.proj-cta').forEach(a => a.addEventListener('click', (e) => {
+  e.stopPropagation();
+}));
 </script>
 </body>
 </html>
