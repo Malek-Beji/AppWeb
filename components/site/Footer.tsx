@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer>
+    <footer id="site-footer">
       <div className="footer-inner">
         <div className="footer-top">
           <div className="footer-brand">
