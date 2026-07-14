@@ -26,9 +26,11 @@ model Project {
 }
 
 model Admin {
-  id           String @id @default(cuid())
-  email        String @unique
-  passwordHash String
+  id             String    @id @default(cuid())
+  email          String    @unique
+  passwordHash   String
+  failedAttempts Int       @default(0)
+  lockedUntil    DateTime?
 }
 
 model ContactMessage {

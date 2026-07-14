@@ -50,6 +50,7 @@ export const FAQ: FaqEntry[] = [
       "processus",
       "etapes",
       "deroulement",
+      "se deroule",
       "comment ca marche",
       "methode",
       "delai",

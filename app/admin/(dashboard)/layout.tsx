@@ -1,15 +1,9 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { getCurrentAdmin } from "@/lib/auth";
 import { logout } from "@/lib/actions/auth";
+import AdminNav from "@/components/admin/AdminNav";
 
 export const dynamic = "force-dynamic";
-
-const NAV = [
-  { href: "/admin", label: "Vue d'ensemble" },
-  { href: "/admin/projects", label: "Projets" },
-  { href: "/admin/messages", label: "Messages" },
-];
 
 export default async function AdminLayout({
   children,
@@ -30,17 +24,9 @@ export default async function AdminLayout({
             Administration
           </p>
         </div>
-        <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="px-3 py-2 rounded text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <div className="flex-1 px-3 py-4">
+          <AdminNav />
+        </div>
         <div className="px-6 py-4 border-t border-white/10">
           <p className="text-xs text-white/40 mb-3 truncate">{admin.email}</p>
           <form action={logout}>

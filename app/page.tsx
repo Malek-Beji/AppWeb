@@ -14,6 +14,24 @@ import RevealObserver from "@/components/site/RevealObserver";
 
 export const dynamic = "force-dynamic";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "AppWeb Plus",
+  description:
+    "Agence digitale — création de sites web, e-commerce, applications mobiles, design & intégration sur mesure.",
+  url: process.env.SITE_URL || "http://localhost:3000",
+  telephone: "+21625789309",
+  email: "contact@appwebplus.tn",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Tunis",
+    addressCountry: "TN",
+  },
+  areaServed: "TN",
+  priceRange: "$$",
+};
+
 export default async function Home() {
   const projects = await prisma.project.findMany({
     orderBy: { order: "asc" },
@@ -21,6 +39,10 @@ export default async function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="orb orb-1"></div>
       <div className="orb orb-2"></div>
       <div className="orb orb-3"></div>

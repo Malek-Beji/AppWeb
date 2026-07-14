@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { PortfolioProject } from "@/lib/types";
 import ProjectModal from "./ProjectModal";
 
@@ -32,7 +33,10 @@ export default function Portfolio({
 
         <div className="portfolio-grid reveal">
           {projects.map((project) => (
-            <div className="proj-card" key={project.id}>
+            <div
+              className={`proj-card${project.featured ? " proj-card-large" : ""}`}
+              key={project.id}
+            >
               <div
                 className="proj-thumb"
                 role="button"
@@ -65,8 +69,13 @@ export default function Portfolio({
               <div className="proj-info">
                 <div className="proj-meta">
                   <span className="proj-tag-label">{project.category}</span>
+                  {project.featured && <span className="proj-year">★ Vedette</span>}
                 </div>
-                <h3>{project.title}</h3>
+                <h3>
+                  <Link href={`/portfolio/${project.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                    {project.title}
+                  </Link>
+                </h3>
                 <p>{project.description}</p>
                 <div className="proj-tags">
                   {project.tags.map((t) => (

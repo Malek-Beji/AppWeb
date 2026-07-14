@@ -4,15 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { uploadProjectImage } from "@/lib/supabaseStorage";
-
-function slugify(title: string) {
-  return title
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
+import { slugify, isValidImageValue, isValidUrl } from "@/lib/project-validation";
 
 async function uniqueSlug(base: string, excludeId?: string) {
   const root = base || "projet";
@@ -27,25 +19,6 @@ async function uniqueSlug(base: string, excludeId?: string) {
     slug = `${root}-${i}`;
   }
   return slug;
-}
-
-function isValidImageValue(value: string) {
-  if (value.startsWith("/")) return true;
-  try {
-    const url = new URL(value);
-    return url.protocol === "http:" || url.protocol === "https:";
-  } catch {
-    return false;
-  }
-}
-
-function isValidUrl(value: string) {
-  try {
-    const url = new URL(value);
-    return url.protocol === "http:" || url.protocol === "https:";
-  } catch {
-    return false;
-  }
 }
 
 function readProjectFields(formData: FormData) {

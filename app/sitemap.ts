@@ -1,7 +1,12 @@
 import type { MetadataRoute } from "next";
+import { prisma } from "@/lib/prisma";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.SITE_URL || "http://localhost:3000";
+
+  const projects = await prisma.project.findMany({
+    select: { slug: true, updatedAt: true },
+  });
 
   return [
     {
@@ -10,5 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    ...projects.map((project) => ({
+      url: `${baseUrl}/portfolio/${project.slug}`,
+      lastModified: project.updatedAt,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
   ];
 }

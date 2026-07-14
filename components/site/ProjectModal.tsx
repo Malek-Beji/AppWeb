@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { PortfolioProject } from "@/lib/types";
 
 export default function ProjectModal({
@@ -83,6 +84,9 @@ export default function ProjectModal({
                 >
                   Voir le site
                 </a>
+                <Link className="btn-ghost" href={`/portfolio/${project.slug}`}>
+                  Page du projet
+                </Link>
                 <button className="btn-ghost" type="button" onClick={onClose}>
                   Fermer
                 </button>
