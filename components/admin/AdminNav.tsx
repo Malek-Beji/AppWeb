@@ -28,14 +28,14 @@ export default function AdminNav() {
             href={item.href}
             className={`group flex items-center justify-between rounded-md border px-4 py-3 text-sm transition-colors ${
               active
-                ? "border-[#c8a96e]/45 bg-[#c8a96e]/10 text-[#f5f3ef]"
+                ? "border-accent/45 bg-accent/10 text-white"
                 : "border-transparent text-white/60 hover:border-white/10 hover:bg-white/[0.04] hover:text-white"
             }`}
           >
             <span className="font-medium">{item.label}</span>
             <span
-              className={`text-[10px] uppercase tracking-[0.22em] ${
-                active ? "text-[#c8a96e]" : "text-white/25 group-hover:text-white/40"
+              className={`font-mono text-[10px] uppercase tracking-[0.22em] ${
+                active ? "text-accent" : "text-white/25 group-hover:text-white/40"
               }`}
             >
               {item.meta}

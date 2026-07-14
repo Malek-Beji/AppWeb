@@ -14,32 +14,41 @@ export default async function AdminLayout({
   if (!admin) redirect("/admin/login");
 
   return (
-    <div className="min-h-screen bg-[#08090d] text-[#f5f3ef] flex">
-      <aside className="w-64 shrink-0 border-r border-white/10 flex flex-col">
-        <div className="px-6 py-6 border-b border-white/10">
-          <span className="font-serif text-xl">
-            AppWeb<span className="text-[#c8a96e] italic">+</span>
+    <div className="min-h-screen bg-ink text-white flex font-sans">
+      <aside className="w-64 shrink-0 border-r border-white/10 flex flex-col relative">
+        <div
+          className="pointer-events-none absolute -top-24 -left-24 h-64 w-64 rounded-full opacity-[0.07] blur-3xl"
+          style={{ background: "radial-gradient(circle, var(--color-accent), transparent 70%)" }}
+        />
+        <div className="px-6 py-7 border-b border-white/10 relative">
+          <span className="font-serif text-2xl tracking-tight">
+            AppWeb<span className="text-accent italic">+</span>
           </span>
-          <p className="text-xs uppercase tracking-widest text-white/40 mt-1">
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/35 mt-1.5">
             Administration
           </p>
         </div>
-        <div className="flex-1 px-3 py-4">
+        <div className="flex-1 px-3 py-5">
           <AdminNav />
         </div>
-        <div className="px-6 py-4 border-t border-white/10">
-          <p className="text-xs text-white/40 mb-3 truncate">{admin.email}</p>
+        <div className="px-6 py-5 border-t border-white/10">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent/70 mb-1">
+            Connecté
+          </p>
+          <p className="text-sm text-white/70 mb-4 truncate">{admin.email}</p>
           <form action={logout}>
             <button
               type="submit"
-              className="text-xs uppercase tracking-widest text-white/50 hover:text-[#c8a96e] transition-colors"
+              className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40 hover:text-accent transition-colors"
             >
-              Déconnexion
+              Déconnexion →
             </button>
           </form>
         </div>
       </aside>
-      <main className="flex-1 p-8 overflow-x-auto">{children}</main>
+      <main className="flex-1 overflow-x-auto">
+        <div className="max-w-5xl px-8 py-10 md:px-12 md:py-12">{children}</div>
+      </main>
     </div>
   );
 }

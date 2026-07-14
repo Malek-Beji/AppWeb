@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import ProjectForm from "@/components/admin/ProjectForm";
@@ -14,7 +15,15 @@ export default async function EditProjectPage({
 
   return (
     <div>
-      <h1 className="text-2xl font-serif mb-8">Éditer « {project.title} »</h1>
+      <Link
+        href="/admin/projects"
+        className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-accent transition-colors"
+      >
+        ← Projets
+      </Link>
+      <h1 className="font-serif text-3xl text-white mt-3 mb-10">
+        Éditer « {project.title} »
+      </h1>
       <ProjectForm action={updateProject} project={project} />
     </div>
   );
