@@ -43,3 +43,12 @@ coverage/
 # Temporary files
 tmp/
 temp/
+
+# Next.js
+.next/
+next-env.d.ts
+*.tsbuildinfo
+
+# Prisma
+prisma/dev.db
+/lib/generated/prisma
