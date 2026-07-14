@@ -84,8 +84,8 @@ export async function createProject(
   });
 
   revalidatePath("/");
-  revalidatePath("/admin/projects");
-  redirect("/admin/projects");
+  revalidatePath("/admin");
+  redirect("/admin?tab=projects");
 }
 
 export async function updateProject(
@@ -139,8 +139,8 @@ export async function updateProject(
   });
 
   revalidatePath("/");
-  revalidatePath("/admin/projects");
-  redirect("/admin/projects");
+  revalidatePath("/admin");
+  redirect("/admin?tab=projects");
 }
 
 export async function deleteProject(formData: FormData) {
@@ -148,7 +148,7 @@ export async function deleteProject(formData: FormData) {
   if (!id) return;
   await prisma.project.delete({ where: { id } });
   revalidatePath("/");
-  revalidatePath("/admin/projects");
+  revalidatePath("/admin");
 }
 
 export async function moveProject(formData: FormData) {
@@ -172,5 +172,5 @@ export async function moveProject(formData: FormData) {
   ]);
 
   revalidatePath("/");
-  revalidatePath("/admin/projects");
+  revalidatePath("/admin");
 }

@@ -1,11 +1,51 @@
 import Link from "next/link";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { deleteProject, moveProject } from "@/lib/actions/projects";
+import { createProject, updateProject, deleteProject, moveProject } from "@/lib/actions/projects";
 import DeleteButton from "@/components/admin/DeleteButton";
+import ProjectForm from "@/components/admin/ProjectForm";
 import { CHIP_BUTTON, CHIP_BUTTON_DANGER, CHIP_BUTTON_ACCENT } from "@/components/admin/styles";
 
-export default async function ProjectsPage() {
+const BACK_LINK_CLASS =
+  "font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-accent transition-colors";
+
+export default async function ProjectsPanel({
+  view,
+  id,
+}: {
+  view?: string;
+  id?: string;
+}) {
+  if (view === "new") {
+    return (
+      <div>
+        <Link href="/admin?tab=projects" className={BACK_LINK_CLASS}>
+          ← Projets
+        </Link>
+        <h1 className="font-serif text-3xl text-white mt-3 mb-10">Nouveau projet</h1>
+        <ProjectForm action={createProject} />
+      </div>
+    );
+  }
+
+  if (view === "edit") {
+    const project = id ? await prisma.project.findUnique({ where: { id } }) : null;
+    if (!project) notFound();
+
+    return (
+      <div>
+        <Link href="/admin?tab=projects" className={BACK_LINK_CLASS}>
+          ← Projets
+        </Link>
+        <h1 className="font-serif text-3xl text-white mt-3 mb-10">
+          Éditer « {project.title} »
+        </h1>
+        <ProjectForm action={updateProject} project={project} />
+      </div>
+    );
+  }
+
   const projects = await prisma.project.findMany({ orderBy: { order: "asc" } });
 
   return (
@@ -17,7 +57,7 @@ export default async function ProjectsPage() {
           </p>
           <h1 className="font-serif text-3xl text-white">Projets</h1>
         </div>
-        <Link href="/admin/projects/new" className={CHIP_BUTTON_ACCENT}>
+        <Link href="/admin?tab=projects&view=new" className={CHIP_BUTTON_ACCENT}>
           + Nouveau projet
         </Link>
       </div>
@@ -75,7 +115,7 @@ export default async function ProjectsPage() {
                   ↓
                 </button>
               </form>
-              <Link href={`/admin/projects/${project.id}`} className={CHIP_BUTTON}>
+              <Link href={`/admin?tab=projects&view=edit&id=${project.id}`} className={CHIP_BUTTON}>
                 Éditer
               </Link>
               <form action={deleteProject}>

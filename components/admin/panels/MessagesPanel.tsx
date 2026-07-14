@@ -3,7 +3,7 @@ import { toggleMessageRead, deleteMessage } from "@/lib/actions/messages";
 import DeleteButton from "@/components/admin/DeleteButton";
 import { CHIP_BUTTON, CHIP_BUTTON_DANGER } from "@/components/admin/styles";
 
-export default async function MessagesPage() {
+export default async function MessagesPanel() {
   const messages = await prisma.contactMessage.findMany({
     orderBy: { createdAt: "desc" },
   });
