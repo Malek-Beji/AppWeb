@@ -1,6 +1,6 @@
 # AppWeb Plus
 
-Site vitrine + tableau de bord d'administration pour AppWeb Plus, développé avec Next.js (App Router), Prisma/PostgreSQL (Supabase) et un chatbot FAQ.
+Site vitrine + tableau de bord d'administration pour AppWeb Plus, développé avec Next.js (App Router), Prisma/PostgreSQL (Supabase) et un chatbot assistant propulsé par un LLM gratuit (OpenRouter).
 
 ## Fonctionnalités
 
@@ -12,7 +12,7 @@ Site vitrine + tableau de bord d'administration pour AppWeb Plus, développé av
 
 ## Stack
 
-Next.js 16 (App Router) · TypeScript · Prisma 7 · PostgreSQL (Supabase) · Supabase Storage · Tailwind CSS (dashboard) · bcryptjs + jose (auth) · Vitest (tests).
+Next.js 16 (App Router) · TypeScript · Prisma 7 · PostgreSQL (Supabase) · Supabase Storage · Tailwind CSS (dashboard) · bcryptjs + jose (auth) · OpenRouter (chatbot LLM) · Vitest (tests).
 
 ## Setup
 
@@ -29,7 +29,7 @@ npm install
 3. Dans **Project Settings > API**, copier l'URL du projet et la `service_role` key dans `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY`.
 4. Dans **Storage**, créer un bucket **public** nommé `portfolio-images` (utilisé pour l'upload d'images de projets depuis le dashboard). Si vous ne créez pas ce bucket, vous pouvez toujours coller une URL d'image directement dans le formulaire projet.
 
-Copier `.env.example` vers `.env` et remplir toutes les valeurs (`DATABASE_URL`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `SESSION_SECRET`, `SITE_URL`).
+Copier `.env.example` vers `.env` et remplir toutes les valeurs (`DATABASE_URL`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `SESSION_SECRET`, `SITE_URL`, `OPENROUTER_API_KEY`).
 
 ### 3. Migration + seed
 
@@ -44,7 +44,13 @@ Cela crée les tables et insère les 7 projets du portfolio ainsi que le compte 
 
 **Développer sans compte Supabase** : `npx prisma dev` lance une base PostgreSQL locale éphémère (aucune installation requise) et affiche une `DATABASE_URL` à coller dans `.env` — pratique pour tester le projet avant de créer un vrai projet Supabase. Utilisez alors `npx prisma db push` plutôt que `migrate dev` (cette base locale ne supporte pas la création de shadow database).
 
-### 4. Lancer le site
+### 4. Chatbot (OpenRouter)
+
+1. Créer une clé sur [openrouter.ai/keys](https://openrouter.ai/keys) et la mettre dans `.env` sous `OPENROUTER_API_KEY`.
+2. `OPENROUTER_MODEL` par défaut est `openrouter/free` — un routeur automatique qui bascule sur n'importe quel modèle gratuit disponible à l'instant (les modèles gratuits individuels comme `meta-llama/llama-3.3-70b-instruct:free` sont souvent rate-limités côté fournisseur ; `openrouter/free` est plus fiable). Voir la liste à jour sur [openrouter.ai/models](https://openrouter.ai/models?max_price=0).
+3. Sans clé configurée, le chatbot fonctionne quand même : il répond avec les réponses statiques de `lib/chatbot-faq.ts` pour les questions reconnues, et affiche un message de repli poli pour le reste (aucune erreur, juste moins de couverture).
+
+### 5. Lancer le site
 
 ```bash
 npm run dev
@@ -53,7 +59,7 @@ npm run dev
 - Site public : http://localhost:3000
 - Dashboard admin : http://localhost:3000/admin/login (avec `ADMIN_EMAIL` / `ADMIN_PASSWORD`)
 
-### 5. Tests
+### 6. Tests
 
 ```bash
 npm test
@@ -65,7 +71,7 @@ Tests unitaires (Vitest) pour la logique pure : validation de projet (slug, URL,
 
 - Les images du portfolio migrées depuis l'ancien site statique vivent dans `public/portfolio/`.
 - Le formulaire de contact enregistre les messages en base (consultables dans `/admin?tab=messages`) — il ne dépend plus d'EmailJS.
-- Le chatbot répond à partir d'un jeu de questions/réponses statique (`lib/chatbot-faq.ts`), sans appel à un service externe.
+- Le chatbot (`components/site/Chatbot.tsx`) essaie d'abord une correspondance locale instantanée (`lib/chatbot-faq.ts`, gratuit, sans réseau) ; si aucune ne correspond, il appelle un LLM via OpenRouter (`lib/actions/chat.ts`) avec un system prompt qui ancre les réponses dans les vrais services/tarifs/coordonnées de l'entreprise (pas de prix inventés, refus poli des questions hors sujet).
 - Le dashboard admin est une seule route (`app/admin/(dashboard)/page.tsx`) qui lit `?tab=`/`?view=`/`?id=` dans l'URL pour afficher le bon panneau (`components/admin/panels/`) — pas de sous-routes séparées. Elle est forcée en rendu dynamique (`export const dynamic = "force-dynamic"`) pour toujours refléter les données à jour et revalider l'authentification à chaque requête — ne pas retirer cet export.
 - Le site public est à l'inverse un vrai site multipage sous le groupe de routes `app/(site)/` (le chrome partagé — nav, footer, chatbot, orbs — vit dans `app/(site)/layout.tsx`). Chaque section (Services, Portfolio, À Propos, Contact) a sa propre route au lieu d'être une ancre sur la page d'accueil.
 - `globals.css` contient à la fois le CSS du site public (sélecteurs `#navbar`, `#site-footer`, classes `.proj-*`, etc.) et les tokens de marque exposés à Tailwind via `@theme` (utilisés par le dashboard admin). Ne jamais réintroduire de sélecteur d'élément brut non scopé (`nav {}`, `footer {}`...) dans la partie site public : ça fuiterait vers n'importe quelle balise du même nom utilisée dans l'admin.

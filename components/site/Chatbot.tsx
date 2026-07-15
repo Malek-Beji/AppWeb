@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FAQ, FALLBACK_ANSWER, WELCOME_MESSAGE, matchFaq } from "@/lib/chatbot-faq";
+import { askAssistant, type ChatMessage } from "@/lib/actions/chat";
 
 type Message = { from: "bot" | "user"; text: string };
 
@@ -11,16 +12,34 @@ export default function Chatbot() {
     { from: "bot", text: WELCOME_MESSAGE },
   ]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function ask(question: string) {
-    if (!question.trim()) return;
-    const entry = matchFaq(question);
+  async function ask(question: string) {
+    const trimmed = question.trim();
+    if (!trimmed || loading) return;
+
+    setInput("");
+    const nextMessages: Message[] = [...messages, { from: "user", text: trimmed }];
+    setMessages(nextMessages);
+
+    const entry = matchFaq(trimmed);
+    if (entry) {
+      setMessages((prev) => [...prev, { from: "bot", text: entry.answer }]);
+      return;
+    }
+
+    setLoading(true);
+    const history: ChatMessage[] = nextMessages.map((m) => ({
+      role: m.from === "user" ? "user" : "assistant",
+      content: m.text,
+    }));
+    const result = await askAssistant(history);
+    setLoading(false);
+
     setMessages((prev) => [
       ...prev,
-      { from: "user", text: question },
-      { from: "bot", text: entry ? entry.answer : FALLBACK_ANSWER },
+      { from: "bot", text: result.ok ? result.reply : FALLBACK_ANSWER },
     ]);
-    setInput("");
   }
 
   return (
@@ -56,6 +75,11 @@ export default function Chatbot() {
                 {m.text}
               </div>
             ))}
+            {loading && (
+              <div className="chat-msg bot" aria-live="polite">
+                …
+              </div>
+            )}
           </div>
 
           <div className="chatbot-suggestions">
@@ -64,6 +88,7 @@ export default function Chatbot() {
                 key={f.id}
                 className="chatbot-suggestion"
                 type="button"
+                disabled={loading}
                 onClick={() => ask(f.question)}
               >
                 {f.question}
@@ -82,9 +107,11 @@ export default function Chatbot() {
               type="text"
               placeholder="Posez votre question..."
               value={input}
+              maxLength={500}
+              disabled={loading}
               onChange={(e) => setInput(e.target.value)}
             />
-            <button type="submit" aria-label="Envoyer">
+            <button type="submit" aria-label="Envoyer" disabled={loading}>
               →
             </button>
           </form>
