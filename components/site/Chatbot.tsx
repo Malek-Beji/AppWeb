@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FAQ, FALLBACK_ANSWER, WELCOME_MESSAGE, matchFaq } from "@/lib/chatbot-faq";
 import { askAssistant, type ChatMessage } from "@/lib/actions/chat";
 
@@ -13,11 +13,18 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [started, setStarted] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, loading]);
 
   async function ask(question: string) {
     const trimmed = question.trim();
     if (!trimmed || loading) return;
 
+    setStarted(true);
     setInput("");
     const nextMessages: Message[] = [...messages, { from: "user", text: trimmed }];
     setMessages(nextMessages);
@@ -55,10 +62,10 @@ export default function Chatbot() {
       {open && (
         <div className="chatbot-panel">
           <div className="chatbot-header">
-            <div>
+            <div className="chatbot-header-avatar">A+</div>
+            <div className="chatbot-header-text">
               <strong>Assistant AppWeb+</strong>
-              <br />
-              <span>Réponse instantanée</span>
+              <span className="status">En ligne</span>
             </div>
             <button
               className="chatbot-close"
@@ -71,30 +78,42 @@ export default function Chatbot() {
 
           <div className="chatbot-messages">
             {messages.map((m, i) => (
-              <div className={`chat-msg ${m.from}`} key={i}>
-                {m.text}
+              <div className={`chat-row ${m.from}`} key={i}>
+                <div className="chat-avatar">{m.from === "bot" ? "A+" : "🙂"}</div>
+                <div className="chat-msg">{m.text}</div>
               </div>
             ))}
             {loading && (
-              <div className="chat-msg bot" aria-live="polite">
-                …
+              <div className="chat-row bot" aria-live="polite" aria-label="L'assistant écrit">
+                <div className="chat-avatar">A+</div>
+                <div className="chat-msg chat-typing">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
 
-          <div className="chatbot-suggestions">
-            {FAQ.map((f) => (
-              <button
-                key={f.id}
-                className="chatbot-suggestion"
-                type="button"
-                disabled={loading}
-                onClick={() => ask(f.question)}
-              >
-                {f.question}
-              </button>
-            ))}
-          </div>
+          {!started && (
+            <>
+              <p className="chatbot-suggestions-label">Questions fréquentes</p>
+              <div className="chatbot-suggestions">
+                {FAQ.map((f) => (
+                  <button
+                    key={f.id}
+                    className="chatbot-suggestion"
+                    type="button"
+                    disabled={loading}
+                    onClick={() => ask(f.question)}
+                  >
+                    {f.question}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
 
           <form
             className="chatbot-form"
@@ -105,13 +124,13 @@ export default function Chatbot() {
           >
             <input
               type="text"
-              placeholder="Posez votre question..."
+              placeholder="Écrivez votre message..."
               value={input}
               maxLength={500}
               disabled={loading}
               onChange={(e) => setInput(e.target.value)}
             />
-            <button type="submit" aria-label="Envoyer" disabled={loading}>
+            <button type="submit" aria-label="Envoyer" disabled={loading || !input.trim()}>
               →
             </button>
           </form>
