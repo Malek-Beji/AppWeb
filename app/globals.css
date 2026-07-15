@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Admin dashboard dark mode is toggled via a `.dark` class on <html> (see
+   components/admin/ThemeScript.tsx / ThemeToggle.tsx), not OS preference —
+   this only affects Tailwind-utility-styled admin markup. The public site's
+   hand-written CSS below never references `.dark`, so it is unaffected. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Brand tokens exposed to Tailwind utilities (used by the admin dashboard),
    kept in sync with the plain CSS variables below used by the public site. */
 @theme {
@@ -13,6 +19,7 @@
   --color-cream: #ede9e2;
   --color-accent: #c8a96e;
   --color-accent-dim: #8b7348;
+  --color-accent-strong: #96793f;
 }
 
 /* ══════════════════════════════════════════════

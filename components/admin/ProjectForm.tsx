@@ -10,9 +10,12 @@ type Action = (
 ) => Promise<ProjectFormState>;
 
 const inputClass =
-  "w-full px-4 py-2.5 rounded bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-accent focus:bg-accent/5 transition-colors";
-const labelClass = "block font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2";
+  "w-full px-4 py-2.5 rounded bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white text-sm placeholder:text-zinc-400 dark:placeholder:text-white/20 focus:outline-none focus:border-accent focus:bg-accent/5 transition-colors";
+const labelClass =
+  "block font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-400 dark:text-white/40 mb-2";
 const sectionLabelClass = "font-mono text-[10px] uppercase tracking-[0.25em] text-accent mb-4";
+const cardClass =
+  "bg-white dark:bg-ink-soft border border-zinc-200 dark:border-white/10 rounded-lg p-8 mb-6 shadow-sm dark:shadow-none";
 
 export default function ProjectForm({
   action,
@@ -27,7 +30,7 @@ export default function ProjectForm({
     <form action={formAction} className="max-w-2xl">
       {project && <input type="hidden" name="id" value={project.id} />}
 
-      <div className="bg-ink-soft border border-white/10 rounded-lg p-8 mb-6">
+      <div className={cardClass}>
         <p className={sectionLabelClass}>Informations</p>
 
         <div className="space-y-5">
@@ -91,7 +94,7 @@ export default function ProjectForm({
         </div>
       </div>
 
-      <div className="bg-ink-soft border border-white/10 rounded-lg p-8 mb-6">
+      <div className={cardClass}>
         <p className={sectionLabelClass}>Image</p>
 
         <div className="space-y-5">
@@ -112,16 +115,16 @@ export default function ProjectForm({
               type="file"
               name="imageFile"
               accept="image/*"
-              className="w-full text-sm text-white/60 file:mr-4 file:rounded file:border file:border-white/10 file:bg-white/5 file:px-3 file:py-2 file:font-mono file:text-[11px] file:uppercase file:tracking-wider file:text-white/70 hover:file:border-white/25 file:transition-colors"
+              className="w-full text-sm text-zinc-500 dark:text-white/60 file:mr-4 file:rounded file:border file:border-zinc-200 dark:file:border-white/10 file:bg-zinc-100 dark:file:bg-white/5 file:px-3 file:py-2 file:font-mono file:text-[11px] file:uppercase file:tracking-wider file:text-zinc-600 dark:file:text-white/70 hover:file:border-zinc-400 dark:hover:file:border-white/25 file:transition-colors"
             />
-            <p className="text-xs text-white/30 mt-2">
+            <p className="text-xs text-zinc-400 dark:text-white/30 mt-2">
               Le fichier uploadé est prioritaire sur l&apos;URL si les deux sont fournis.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="bg-ink-soft border border-white/10 rounded-lg p-8 mb-6">
+      <div className={cardClass}>
         <label htmlFor="featured" className="flex items-center gap-3 cursor-pointer">
           <input
             type="checkbox"
@@ -130,21 +133,21 @@ export default function ProjectForm({
             defaultChecked={project?.featured}
             className="w-4 h-4 accent-accent"
           />
-          <span className="text-sm text-white/80">Projet vedette</span>
-          <span className="text-xs text-white/35">
+          <span className="text-sm text-zinc-700 dark:text-white/80">Projet vedette</span>
+          <span className="text-xs text-zinc-400 dark:text-white/35">
             — affiché en grand format sur le portfolio public
           </span>
         </label>
       </div>
 
       {state?.error && (
-        <p className="text-sm text-red-400 mb-5">{state.error}</p>
+        <p className="text-sm text-red-600 dark:text-red-400 mb-5">{state.error}</p>
       )}
 
       <button
         type="submit"
         disabled={pending}
-        className="px-6 py-2.5 rounded bg-accent text-ink text-sm font-semibold uppercase tracking-wide hover:bg-transparent hover:text-accent border border-accent transition-colors disabled:opacity-60 disabled:pointer-events-none"
+        className="px-6 py-2.5 rounded bg-accent text-ink text-sm font-semibold uppercase tracking-wide hover:bg-transparent hover:text-accent-strong dark:hover:text-accent border border-accent transition-colors disabled:opacity-60 disabled:pointer-events-none"
       >
         {pending ? "Enregistrement..." : "Enregistrer"}
       </button>

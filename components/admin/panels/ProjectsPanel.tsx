@@ -8,7 +8,7 @@ import ProjectForm from "@/components/admin/ProjectForm";
 import { CHIP_BUTTON, CHIP_BUTTON_DANGER, CHIP_BUTTON_ACCENT } from "@/components/admin/styles";
 
 const BACK_LINK_CLASS =
-  "font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-accent transition-colors";
+  "font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-400 dark:text-white/40 hover:text-accent-strong dark:hover:text-accent transition-colors";
 
 export default async function ProjectsPanel({
   view,
@@ -23,7 +23,9 @@ export default async function ProjectsPanel({
         <Link href="/admin?tab=projects" className={BACK_LINK_CLASS}>
           ← Projets
         </Link>
-        <h1 className="font-serif text-3xl text-white mt-3 mb-10">Nouveau projet</h1>
+        <h1 className="font-serif text-3xl text-zinc-900 dark:text-white mt-3 mb-10">
+          Nouveau projet
+        </h1>
         <ProjectForm action={createProject} />
       </div>
     );
@@ -38,7 +40,7 @@ export default async function ProjectsPanel({
         <Link href="/admin?tab=projects" className={BACK_LINK_CLASS}>
           ← Projets
         </Link>
-        <h1 className="font-serif text-3xl text-white mt-3 mb-10">
+        <h1 className="font-serif text-3xl text-zinc-900 dark:text-white mt-3 mb-10">
           Éditer « {project.title} »
         </h1>
         <ProjectForm action={updateProject} project={project} />
@@ -55,20 +57,20 @@ export default async function ProjectsPanel({
           <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-accent mb-3">
             Portfolio
           </p>
-          <h1 className="font-serif text-3xl text-white">Projets</h1>
+          <h1 className="font-serif text-3xl text-zinc-900 dark:text-white">Projets</h1>
         </div>
         <Link href="/admin?tab=projects&view=new" className={CHIP_BUTTON_ACCENT}>
           + Nouveau projet
         </Link>
       </div>
 
-      <div className="border border-white/10 rounded-lg overflow-hidden bg-white/[0.02]">
+      <div className="border border-zinc-200 dark:border-white/10 rounded-lg overflow-hidden bg-white dark:bg-white/[0.02] shadow-sm dark:shadow-none">
         {projects.map((project, i) => (
           <div
             key={project.id}
-            className="flex items-center gap-4 px-5 py-4 border-b border-white/10 last:border-b-0 hover:bg-white/[0.03] transition-colors"
+            className="flex items-center gap-4 px-5 py-4 border-b border-zinc-200 dark:border-white/10 last:border-b-0 hover:bg-zinc-50 dark:hover:bg-white/[0.03] transition-colors"
           >
-            <div className="relative w-20 h-12 shrink-0 rounded-md overflow-hidden bg-white/5 ring-1 ring-white/10">
+            <div className="relative w-20 h-12 shrink-0 rounded-md overflow-hidden bg-zinc-100 dark:bg-white/5 ring-1 ring-zinc-200 dark:ring-white/10">
               <Image
                 src={project.image}
                 alt={project.title}
@@ -78,15 +80,15 @@ export default async function ProjectsPanel({
               />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white truncate flex items-center gap-2">
+              <div className="text-sm font-medium text-zinc-900 dark:text-white truncate flex items-center gap-2">
                 {project.title}
                 {project.featured && (
-                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent border border-accent/30 rounded px-1.5 py-0.5">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent-strong dark:text-accent border border-accent/30 rounded px-1.5 py-0.5">
                     Vedette
                   </span>
                 )}
               </div>
-              <div className="font-mono text-[11px] text-white/35 truncate mt-1">
+              <div className="font-mono text-[11px] text-zinc-400 dark:text-white/35 truncate mt-1">
                 {project.category}
               </div>
             </div>
@@ -97,7 +99,7 @@ export default async function ProjectsPanel({
                 <button
                   type="submit"
                   disabled={i === 0}
-                  className="w-8 h-8 rounded border border-white/10 text-white/60 hover:text-white hover:border-white/30 disabled:opacity-20 disabled:pointer-events-none transition-colors"
+                  className="w-8 h-8 rounded border border-zinc-200 dark:border-white/10 text-zinc-500 dark:text-white/60 hover:text-zinc-900 dark:hover:text-white hover:border-zinc-400 dark:hover:border-white/30 disabled:opacity-20 disabled:pointer-events-none transition-colors"
                   aria-label="Monter"
                 >
                   ↑
@@ -109,7 +111,7 @@ export default async function ProjectsPanel({
                 <button
                   type="submit"
                   disabled={i === projects.length - 1}
-                  className="w-8 h-8 rounded border border-white/10 text-white/60 hover:text-white hover:border-white/30 disabled:opacity-20 disabled:pointer-events-none transition-colors"
+                  className="w-8 h-8 rounded border border-zinc-200 dark:border-white/10 text-zinc-500 dark:text-white/60 hover:text-zinc-900 dark:hover:text-white hover:border-zinc-400 dark:hover:border-white/30 disabled:opacity-20 disabled:pointer-events-none transition-colors"
                   aria-label="Descendre"
                 >
                   ↓
@@ -129,7 +131,7 @@ export default async function ProjectsPanel({
           </div>
         ))}
         {projects.length === 0 && (
-          <p className="p-8 text-sm text-white/40 text-center">
+          <p className="p-8 text-sm text-zinc-400 dark:text-white/40 text-center">
             Aucun projet pour le moment.
           </p>
         )}
