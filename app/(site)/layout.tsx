@@ -1,18 +1,7 @@
-import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/site/Navbar";
-import Hero from "@/components/site/Hero";
-import Ticker from "@/components/site/Ticker";
-import Services from "@/components/site/Services";
-import About from "@/components/site/About";
-import Portfolio from "@/components/site/Portfolio";
-import WhyUs from "@/components/site/WhyUs";
-import CtaBand from "@/components/site/CtaBand";
-import Contact from "@/components/site/Contact";
 import Footer from "@/components/site/Footer";
 import Chatbot from "@/components/site/Chatbot";
 import RevealObserver from "@/components/site/RevealObserver";
-
-export const dynamic = "force-dynamic";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -32,11 +21,7 @@ const jsonLd = {
   priceRange: "$$",
 };
 
-export default async function Home() {
-  const projects = await prisma.project.findMany({
-    orderBy: { order: "asc" },
-  });
-
+export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <script
@@ -48,14 +33,7 @@ export default async function Home() {
       <div className="orb orb-3"></div>
 
       <Navbar />
-      <Hero />
-      <Ticker />
-      <Services />
-      <About />
-      <Portfolio projects={projects} />
-      <WhyUs />
-      <CtaBand />
-      <Contact />
+      {children}
       <Footer />
       <Chatbot />
       <RevealObserver />

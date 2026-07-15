@@ -4,7 +4,7 @@ Site vitrine + tableau de bord d'administration pour AppWeb Plus, développé av
 
 ## Fonctionnalités
 
-- **Site public** : hero, services, à propos, portfolio (piloté par base de données, avec pages projet dédiées `/portfolio/[slug]` pour le SEO), processus, contact, chatbot d'assistance.
+- **Site public multipage** : `/` (accueil), `/services`, `/portfolio` (piloté par base de données, avec pages projet dédiées `/portfolio/[slug]` pour le SEO), `/apropos` (expertise + processus), `/contact`, chatbot d'assistance sur toutes les pages.
 - **Dashboard admin** (`/admin`) : single-page — un header en haut avec onglets (`?tab=overview|projects|messages`), changement de section sans rechargement complet de page. Gestion du portfolio (créer/éditer/supprimer/réordonner, marquer en vedette, upload d'image), inbox des messages de contact.
 - **Auth** : compte admin unique protégé par mot de passe (session cookie signée), avec verrouillage automatique après 5 tentatives échouées (15 min).
 - **SEO** : métadonnées Open Graph/Twitter, image OG générée dynamiquement, données structurées JSON-LD, `robots.txt` + `sitemap.xml` (incluant les pages projet).
@@ -67,5 +67,6 @@ Tests unitaires (Vitest) pour la logique pure : validation de projet (slug, URL,
 - Le formulaire de contact enregistre les messages en base (consultables dans `/admin?tab=messages`) — il ne dépend plus d'EmailJS.
 - Le chatbot répond à partir d'un jeu de questions/réponses statique (`lib/chatbot-faq.ts`), sans appel à un service externe.
 - Le dashboard admin est une seule route (`app/admin/(dashboard)/page.tsx`) qui lit `?tab=`/`?view=`/`?id=` dans l'URL pour afficher le bon panneau (`components/admin/panels/`) — pas de sous-routes séparées. Elle est forcée en rendu dynamique (`export const dynamic = "force-dynamic"`) pour toujours refléter les données à jour et revalider l'authentification à chaque requête — ne pas retirer cet export.
+- Le site public est à l'inverse un vrai site multipage sous le groupe de routes `app/(site)/` (le chrome partagé — nav, footer, chatbot, orbs — vit dans `app/(site)/layout.tsx`). Chaque section (Services, Portfolio, À Propos, Contact) a sa propre route au lieu d'être une ancre sur la page d'accueil.
 - `globals.css` contient à la fois le CSS du site public (sélecteurs `#navbar`, `#site-footer`, classes `.proj-*`, etc.) et les tokens de marque exposés à Tailwind via `@theme` (utilisés par le dashboard admin). Ne jamais réintroduire de sélecteur d'élément brut non scopé (`nav {}`, `footer {}`...) dans la partie site public : ça fuiterait vers n'importe quelle balise du même nom utilisée dans l'admin.
 - `index.html` (l'ancien site statique) est conservé à la racine à titre de référence ; il n'est pas servi par Next.js.

@@ -106,6 +106,8 @@ body::after {
 }
 .nav-center a:hover { color:var(--white); }
 .nav-center a:hover::after { width:100%; }
+.nav-center a.active { color:var(--white); }
+.nav-center a.active::after { width:100%; }
 
 .nav-right { display:flex; align-items:center; gap:1rem; }
 .btn-nav {

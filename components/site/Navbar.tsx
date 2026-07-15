@@ -1,18 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const LINKS = [
-  { href: "#accueil", label: "Accueil" },
-  { href: "#services", label: "Services" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#apropos", label: "À Propos" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Accueil" },
+  { href: "/services", label: "Services" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/apropos", label: "À Propos" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -27,9 +30,9 @@ export default function Navbar() {
 
   return (
     <nav id="navbar" className={scrolled ? "scrolled" : ""}>
-      <div className="nav-logo">
+      <Link href="/" className="nav-logo">
         AppWeb<span className="dot">+</span>
-      </div>
+      </Link>
       <div
         className={`menu-toggle${open ? " open" : ""}`}
         onClick={() => setOpen((v) => !v)}
@@ -41,16 +44,20 @@ export default function Navbar() {
       <ul className={`nav-center${open ? " open" : ""}`}>
         {LINKS.map((link) => (
           <li key={link.href}>
-            <a href={link.href} onClick={() => setOpen(false)}>
+            <Link
+              href={link.href}
+              className={pathname === link.href ? "active" : ""}
+              onClick={() => setOpen(false)}
+            >
               {link.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
       <div className="nav-right">
-        <a href="#contact" className="btn-nav">
+        <Link href="/contact" className="btn-nav">
           Démarrer un projet
-        </a>
+        </Link>
       </div>
     </nav>
   );

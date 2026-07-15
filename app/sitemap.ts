@@ -8,13 +8,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     select: { slug: true, updatedAt: true },
   });
 
+  const staticPages = ["", "/services", "/portfolio", "/apropos", "/contact"];
+
   return [
-    {
-      url: baseUrl,
+    ...staticPages.map((path) => ({
+      url: `${baseUrl}${path}`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
+      changeFrequency: "weekly" as const,
+      priority: path === "" ? 1 : 0.9,
+    })),
     ...projects.map((project) => ({
       url: `${baseUrl}/portfolio/${project.slug}`,
       lastModified: project.updatedAt,

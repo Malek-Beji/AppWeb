@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CtaBand() {
   return (
     <section className="cta-section">
@@ -17,9 +19,9 @@ export default function CtaBand() {
           </div>
           <div className="cta-right-block">
             <div className="cta-phone-num">+216 25 789 309</div>
-            <a href="#contact" className="btn-primary">
+            <Link href="/contact" className="btn-primary">
               Nous contacter maintenant
-            </a>
+            </Link>
           </div>
         </div>
       </div>
