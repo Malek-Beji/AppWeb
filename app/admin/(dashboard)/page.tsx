@@ -5,11 +5,16 @@ import MessagesPanel from "@/components/admin/panels/MessagesPanel";
 export default async function AdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ tab?: string; view?: string; id?: string }>;
+  searchParams: Promise<{
+    tab?: string;
+    view?: string;
+    id?: string;
+    filter?: string;
+  }>;
 }) {
-  const { tab = "overview", view, id } = await searchParams;
+  const { tab = "overview", view, id, filter } = await searchParams;
 
   if (tab === "projects") return <ProjectsPanel view={view} id={id} />;
-  if (tab === "messages") return <MessagesPanel />;
+  if (tab === "messages") return <MessagesPanel filter={filter} />;
   return <OverviewPanel />;
 }

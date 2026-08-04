@@ -18,7 +18,9 @@ export default async function AdminLayout({
     <div className="min-h-screen bg-zinc-50 text-zinc-900 dark:bg-ink dark:text-white font-sans">
       <ThemeScript />
       <Suspense
-        fallback={<div className="h-16 border-b border-zinc-200 dark:border-white/10" />}
+        fallback={
+          <div className="h-[113px] border-b border-zinc-200 dark:border-white/10" />
+        }
       >
         <AdminHeader email={admin.email} />
       </Suspense>

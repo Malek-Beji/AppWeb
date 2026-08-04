@@ -5,10 +5,30 @@ import { prisma } from "@/lib/prisma";
 import { createProject, updateProject, deleteProject, moveProject } from "@/lib/actions/projects";
 import DeleteButton from "@/components/admin/DeleteButton";
 import ProjectForm from "@/components/admin/ProjectForm";
-import { CHIP_BUTTON, CHIP_BUTTON_DANGER, CHIP_BUTTON_ACCENT } from "@/components/admin/styles";
+import { PageHeader, EmptyState, Badge } from "@/components/admin/ui";
+import {
+  CARD,
+  CHIP_BUTTON,
+  CHIP_BUTTON_DANGER,
+  CHIP_BUTTON_ACCENT,
+  ICON_BUTTON,
+  EYEBROW,
+  PAGE_TITLE,
+} from "@/components/admin/styles";
+import {
+  IconPlus,
+  IconPencil,
+  IconTrash,
+  IconArrowUp,
+  IconArrowDown,
+  IconArrowLeft,
+  IconLayers,
+  IconStar,
+  IconExternal,
+} from "@/components/admin/icons";
 
 const BACK_LINK_CLASS =
-  "font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-400 dark:text-white/40 hover:text-accent-strong dark:hover:text-accent transition-colors";
+  "inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-400 dark:text-white/40 hover:text-accent-strong dark:hover:text-accent transition-colors";
 
 export default async function ProjectsPanel({
   view,
@@ -21,11 +41,11 @@ export default async function ProjectsPanel({
     return (
       <div>
         <Link href="/admin?tab=projects" className={BACK_LINK_CLASS}>
-          ← Projets
+          <IconArrowLeft className="w-3.5 h-3.5" />
+          Projets
         </Link>
-        <h1 className="font-serif text-3xl text-zinc-900 dark:text-white mt-3 mb-10">
-          Nouveau projet
-        </h1>
+        <p className={`${EYEBROW} mt-6 mb-2.5`}>Création</p>
+        <h1 className={`${PAGE_TITLE} mb-8`}>Nouveau projet</h1>
         <ProjectForm action={createProject} />
       </div>
     );
@@ -38,11 +58,11 @@ export default async function ProjectsPanel({
     return (
       <div>
         <Link href="/admin?tab=projects" className={BACK_LINK_CLASS}>
-          ← Projets
+          <IconArrowLeft className="w-3.5 h-3.5" />
+          Projets
         </Link>
-        <h1 className="font-serif text-3xl text-zinc-900 dark:text-white mt-3 mb-10">
-          Éditer « {project.title} »
-        </h1>
+        <p className={`${EYEBROW} mt-6 mb-2.5`}>Édition</p>
+        <h1 className={`${PAGE_TITLE} mb-8`}>{project.title}</h1>
         <ProjectForm action={updateProject} project={project} />
       </div>
     );
@@ -52,90 +72,141 @@ export default async function ProjectsPanel({
 
   return (
     <div>
-      <div className="flex items-start justify-between mb-10 gap-4 flex-wrap">
-        <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-accent mb-3">
-            Portfolio
-          </p>
-          <h1 className="font-serif text-3xl text-zinc-900 dark:text-white">Projets</h1>
-        </div>
-        <Link href="/admin?tab=projects&view=new" className={CHIP_BUTTON_ACCENT}>
-          + Nouveau projet
-        </Link>
-      </div>
+      <PageHeader
+        eyebrow="Portfolio"
+        title="Projets"
+        description="L'ordre défini ici est celui affiché sur la page portfolio publique."
+        action={
+          <Link href="/admin?tab=projects&view=new" className={CHIP_BUTTON_ACCENT}>
+            <IconPlus className="w-3.5 h-3.5" />
+            Nouveau projet
+          </Link>
+        }
+      />
 
-      <div className="border border-zinc-200 dark:border-white/10 rounded-lg overflow-hidden bg-white dark:bg-white/[0.02] shadow-sm dark:shadow-none">
-        {projects.map((project, i) => (
-          <div
-            key={project.id}
-            className="flex items-center gap-4 px-5 py-4 border-b border-zinc-200 dark:border-white/10 last:border-b-0 hover:bg-zinc-50 dark:hover:bg-white/[0.03] transition-colors"
-          >
-            <div className="relative w-20 h-12 shrink-0 rounded-md overflow-hidden bg-zinc-100 dark:bg-white/5 ring-1 ring-zinc-200 dark:ring-white/10">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                sizes="80px"
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-zinc-900 dark:text-white truncate flex items-center gap-2">
-                {project.title}
-                {project.featured && (
-                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent-strong dark:text-accent border border-accent/30 rounded px-1.5 py-0.5">
-                    Vedette
-                  </span>
-                )}
-              </div>
-              <div className="font-mono text-[11px] text-zinc-400 dark:text-white/35 truncate mt-1">
-                {project.category}
-              </div>
-            </div>
-            <div className="flex items-center gap-1.5 shrink-0">
-              <form action={moveProject}>
-                <input type="hidden" name="id" value={project.id} />
-                <input type="hidden" name="direction" value="up" />
-                <button
-                  type="submit"
-                  disabled={i === 0}
-                  className="w-8 h-8 rounded border border-zinc-200 dark:border-white/10 text-zinc-500 dark:text-white/60 hover:text-zinc-900 dark:hover:text-white hover:border-zinc-400 dark:hover:border-white/30 disabled:opacity-20 disabled:pointer-events-none transition-colors"
-                  aria-label="Monter"
-                >
-                  ↑
-                </button>
-              </form>
-              <form action={moveProject}>
-                <input type="hidden" name="id" value={project.id} />
-                <input type="hidden" name="direction" value="down" />
-                <button
-                  type="submit"
-                  disabled={i === projects.length - 1}
-                  className="w-8 h-8 rounded border border-zinc-200 dark:border-white/10 text-zinc-500 dark:text-white/60 hover:text-zinc-900 dark:hover:text-white hover:border-zinc-400 dark:hover:border-white/30 disabled:opacity-20 disabled:pointer-events-none transition-colors"
-                  aria-label="Descendre"
-                >
-                  ↓
-                </button>
-              </form>
-              <Link href={`/admin?tab=projects&view=edit&id=${project.id}`} className={CHIP_BUTTON}>
-                Éditer
-              </Link>
-              <form action={deleteProject}>
-                <input type="hidden" name="id" value={project.id} />
-                <DeleteButton
-                  confirmText={`Supprimer « ${project.title} » ?`}
-                  className={CHIP_BUTTON_DANGER}
-                />
-              </form>
-            </div>
+      {projects.length === 0 ? (
+        <EmptyState
+          icon={<IconLayers className="w-5 h-5" />}
+          title="Aucun projet pour le moment"
+          description="Ajoutez votre première réalisation pour qu'elle apparaisse sur le site."
+          action={
+            <Link href="/admin?tab=projects&view=new" className={CHIP_BUTTON_ACCENT}>
+              <IconPlus className="w-3.5 h-3.5" />
+              Nouveau projet
+            </Link>
+          }
+        />
+      ) : (
+        <div className={`${CARD} overflow-hidden`}>
+          {/* Table header */}
+          <div className="hidden md:flex items-center gap-4 px-5 py-3 border-b border-zinc-200 dark:border-white/10 bg-zinc-50/70 dark:bg-white/[0.02]">
+            <span className="w-20 shrink-0 font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-400 dark:text-white/35">
+              Aperçu
+            </span>
+            <span className="flex-1 font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-400 dark:text-white/35">
+              Projet
+            </span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-400 dark:text-white/35">
+              {projects.length} au total
+            </span>
           </div>
-        ))}
-        {projects.length === 0 && (
-          <p className="p-8 text-sm text-zinc-400 dark:text-white/40 text-center">
-            Aucun projet pour le moment.
-          </p>
-        )}
-      </div>
+
+          {projects.map((project, i) => (
+            <div
+              key={project.id}
+              className="flex items-center gap-4 px-5 py-4 border-b border-zinc-100 dark:border-white/[0.07] last:border-b-0 hover:bg-zinc-50 dark:hover:bg-white/[0.03] transition-colors"
+            >
+              <div className="relative w-20 h-12 shrink-0 rounded-lg overflow-hidden bg-zinc-100 dark:bg-white/5 ring-1 ring-zinc-200 dark:ring-white/10">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="80px"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium text-zinc-900 dark:text-white truncate flex items-center gap-2">
+                  <span className="truncate">{project.title}</span>
+                  {project.featured && (
+                    <Badge tone="accent">
+                      <IconStar className="w-2.5 h-2.5" />
+                      Vedette
+                    </Badge>
+                  )}
+                </div>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="font-mono text-[11px] text-zinc-400 dark:text-white/35 truncate">
+                    {project.category}
+                  </span>
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener"
+                    title="Ouvrir le site du projet"
+                    className="text-zinc-300 dark:text-white/25 hover:text-accent-strong dark:hover:text-accent transition-colors shrink-0"
+                  >
+                    <IconExternal className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 shrink-0">
+                <div className="flex items-center gap-1 mr-1">
+                  <form action={moveProject}>
+                    <input type="hidden" name="id" value={project.id} />
+                    <input type="hidden" name="direction" value="up" />
+                    <button
+                      type="submit"
+                      disabled={i === 0}
+                      className={ICON_BUTTON}
+                      aria-label={`Monter ${project.title}`}
+                      title="Monter"
+                    >
+                      <IconArrowUp className="w-4 h-4" />
+                    </button>
+                  </form>
+                  <form action={moveProject}>
+                    <input type="hidden" name="id" value={project.id} />
+                    <input type="hidden" name="direction" value="down" />
+                    <button
+                      type="submit"
+                      disabled={i === projects.length - 1}
+                      className={ICON_BUTTON}
+                      aria-label={`Descendre ${project.title}`}
+                      title="Descendre"
+                    >
+                      <IconArrowDown className="w-4 h-4" />
+                    </button>
+                  </form>
+                </div>
+
+                <Link
+                  href={`/admin?tab=projects&view=edit&id=${project.id}`}
+                  className={CHIP_BUTTON}
+                  title="Éditer"
+                >
+                  <IconPencil className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Éditer</span>
+                </Link>
+
+                <form action={deleteProject}>
+                  <input type="hidden" name="id" value={project.id} />
+                  <DeleteButton
+                    confirmText={`Supprimer « ${project.title} » ? Cette action est définitive.`}
+                    className={CHIP_BUTTON_DANGER}
+                    title="Supprimer"
+                  >
+                    <IconTrash className="w-3.5 h-3.5" />
+                    <span className="sr-only">Supprimer</span>
+                  </DeleteButton>
+                </form>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
