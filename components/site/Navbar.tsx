@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logo from "./Logo";
 
 const LINKS = [
   { href: "/", label: "Accueil" },
@@ -30,8 +31,8 @@ export default function Navbar() {
 
   return (
     <nav id="navbar" className={scrolled ? "scrolled" : ""}>
-      <Link href="/" className="nav-logo">
-        AppWeb<span className="dot">+</span>
+      <Link href="/" className="nav-logo" aria-label="AppWeb Plus — accueil">
+        <Logo size={30} />
       </Link>
       <div
         className={`menu-toggle${open ? " open" : ""}`}

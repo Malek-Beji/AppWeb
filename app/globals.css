@@ -94,7 +94,13 @@ body::after {
   display:flex; align-items:center; gap:4px;
   flex-shrink:0;
 }
-.nav-logo .dot { color: var(--accent); font-size:1.5rem; line-height:1; }
+/* Verrou marque + nom, partagé par la navigation et le pied de page.
+   La marque est un SVG inline (components/site/Logo.tsx) ; l'espace entre les
+   deux vaut la largeur d'un bloc, c'est la zone de respiration du logo. */
+.brand-lockup { display:inline-flex; align-items:center; gap:.6em; }
+.brand-lockup svg { display:block; flex-shrink:0; }
+.brand-name { font-family: var(--serif); letter-spacing:-0.5px; color: var(--white); }
+.brand-name .dot { color: var(--accent); }
 
 .nav-center {
   display:flex; gap:2.5rem; list-style:none; align-items:center;
@@ -764,7 +770,8 @@ section[id] { scroll-margin-top: var(--nav-h); }
   font-family:var(--serif); font-size:1.5rem;
   margin-bottom:1rem; display:block; color:var(--white);
 }
-.footer-brand-logo span { color:var(--accent); font-style:italic; }
+/* Ne cibler que le « + » : sinon la règle repeint tout le verrou de marque. */
+.footer-brand-logo .brand-name .dot { color:var(--accent); }
 .footer-brand p { color:var(--muted); font-size:.85rem; line-height:1.75; margin-bottom:1.5rem; max-width:280px; font-weight:300; }
 .socials { display:flex; gap:.8rem; }
 .soc-btn {

@@ -19,18 +19,44 @@ export default function OpengraphImage() {
             "radial-gradient(circle at 15% 15%, rgba(200,169,110,0.16), transparent 55%), radial-gradient(circle at 85% 85%, rgba(139,115,72,0.14), transparent 55%)",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "baseline",
-            fontSize: 108,
-            fontWeight: 400,
-            color: "#f5f3ef",
-            letterSpacing: -2,
-          }}
-        >
-          AppWeb
-          <span style={{ color: "#c8a96e", fontStyle: "italic", marginLeft: 8 }}>+</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
+          {/* la marque, redessinée en rectangles : ImageResponse ne rasterise
+              pas les <svg> imbriqués, mais gère parfaitement les divs */}
+          <div style={{ display: "flex", position: "relative", width: 150, height: 150 }}>
+            {[
+              { l: 0, t: 50, c: "#c8a96e" },
+              { l: 50, t: 50, c: "#c8a96e" },
+              { l: 100, t: 50, c: "#c8a96e" },
+              { l: 50, t: 100, c: "#c8a96e" },
+              { l: 50, t: 0, c: "#f5f3ef" },
+            ].map((b, i) => (
+              <div
+                key={i}
+                style={{
+                  position: "absolute",
+                  left: b.l,
+                  top: b.t,
+                  width: 45,
+                  height: 45,
+                  borderRadius: 11,
+                  background: b.c,
+                }}
+              />
+            ))}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              fontSize: 108,
+              fontWeight: 400,
+              color: "#f5f3ef",
+              letterSpacing: -2,
+            }}
+          >
+            AppWeb
+            <span style={{ color: "#c8a96e", marginLeft: 8 }}>+</span>
+          </div>
         </div>
         <div
           style={{

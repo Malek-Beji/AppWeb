@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
@@ -7,7 +8,7 @@ export default function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <span className="footer-brand-logo">
-              AppWeb<span>+</span>
+              <Logo size={38} />
             </span>
             <p>
               Votre partenaire pour l&apos;excellence digitale. Développement
