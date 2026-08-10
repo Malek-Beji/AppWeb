@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { prisma } from "@/lib/prisma";
+import { portfolioProjects } from "@/lib/projects";
 import Portfolio from "@/components/site/Portfolio";
 import CtaBand from "@/components/site/CtaBand";
 
-export const dynamic = "force-dynamic";
+// Contenu statique (voir lib/projects.ts) : cette page se prérend au build,
+// comme /services, et ne dépend d'aucune base de données à l'exécution.
 
 export const metadata: Metadata = {
   title: "Portfolio — AppWeb Plus",
@@ -11,14 +12,10 @@ export const metadata: Metadata = {
     "Découvrez nos réalisations : e-commerce, immobilier, santé, formation. Des projets sur mesure livrés par AppWeb Plus.",
 };
 
-export default async function PortfolioPage() {
-  const projects = await prisma.project.findMany({
-    orderBy: { order: "asc" },
-  });
-
+export default function PortfolioPage() {
   return (
     <>
-      <Portfolio projects={projects} />
+      <Portfolio projects={portfolioProjects} />
       <CtaBand />
     </>
   );

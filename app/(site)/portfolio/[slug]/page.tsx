@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { findProject, portfolioProjects } from "@/lib/projects";
 
-export const dynamic = "force-dynamic";
+// Contenu statique (voir lib/projects.ts) : une page par projet est prérendue
+// au build, sans aucun accès à la base à l'exécution.
+export const dynamicParams = false;
 
-async function getProject(slug: string) {
-  return prisma.project.findUnique({ where: { slug } });
+export function generateStaticParams() {
+  return portfolioProjects.map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({
@@ -16,7 +18,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = await getProject(slug);
+  const project = findProject(slug);
   if (!project) return {};
 
   return {
@@ -36,7 +38,7 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = await getProject(slug);
+  const project = findProject(slug);
   if (!project) notFound();
 
   return (

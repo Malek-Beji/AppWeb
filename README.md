@@ -38,7 +38,7 @@ npx prisma migrate dev --name init
 npm run seed
 ```
 
-Cela crée les tables et insère les 10 projets du portfolio ainsi que le compte admin défini par `ADMIN_EMAIL` / `ADMIN_PASSWORD`. Relancer `npm run seed` à tout moment est sans danger (upsert) : les projets sont resynchronisés, et **le mot de passe admin n'est pas touché** si le compte existe déjà.
+Cela crée les tables et insère les 10 projets du portfolio — définis dans `lib/projects.ts`, la même liste que celle affichée par le site public — ainsi que le compte admin défini par `ADMIN_EMAIL` / `ADMIN_PASSWORD`. Relancer `npm run seed` à tout moment est sans danger (upsert par `slug`) : les projets sont resynchronisés, et **le mot de passe admin n'est pas touché** si le compte existe déjà.
 
 Pour resynchroniser volontairement le mot de passe depuis `.env` (cela réinitialise aussi le compteur de tentatives et le verrouillage) :
 
@@ -90,7 +90,9 @@ Variables à déclarer dans **Project Settings > Environment Variables**, pour P
 
 `SITE_URL` n'a pas de valeur par défaut utilisable en ligne : le code retombe sur `http://localhost:3000`, et `sitemap.xml`, `robots.txt`, les URL canoniques et les images Open Graph pointeraient alors toutes vers localhost. C'est invisible à l'œil et fatal pour le référencement.
 
-Les pages publiques sont en `force-dynamic` : ajouter ou modifier un projet (depuis le dashboard ou via `npm run seed`) apparaît en ligne immédiatement, sans redéploiement.
+Le portfolio public est **statique** : `/portfolio` et les pages projet sont prérendues au build à partir de `lib/projects.ts` et n'interrogent pas la base. Elles répondent donc même sans `DATABASE_URL`. En contrepartie, **un projet ajouté ou modifié depuis `/admin` n'apparaît pas en ligne** : il faut le reporter dans `lib/projects.ts` et redéployer.
+
+Les pages qui ont réellement besoin de la base restent le dashboard `/admin`, la connexion, l'enregistrement du formulaire de contact et le chatbot. Sans les variables ci-dessus, elles échouent — un formulaire de contact muet est plus grave qu'une page portfolio vide.
 
 ## Notes
 

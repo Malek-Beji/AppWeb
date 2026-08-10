@@ -48,16 +48,26 @@ l'adaptateur `PrismaPg`. Pas `@prisma/client`.
 
 ---
 
-## Le contenu du portfolio vit en base, pas dans le code
+## Le portfolio public est statique — et c'est délibéré
 
-`prisma/seed.ts` n'est que la source de référence. Les projets réels sont dans la table
-`Project` sur **Supabase en production**. Conséquences :
+**`lib/projects.ts` est la source unique du contenu du portfolio.** `/portfolio` et
+`/portfolio/[slug]` lisent cette liste directement : elles sont prérendues au build et
+ne touchent **pas** la base à l'exécution. Elles ne peuvent donc pas retourner 500 si
+Supabase est injoignable ou mal configuré — ce qui s'était produit en ligne.
 
-- Modifier `seed.ts` ne change rien tant que `npm run seed` n'est pas exécuté.
+Le piège à connaître : **le tableau de bord n'alimente plus le site public.** Modifier
+un projet depuis `/admin` change la table `Project`, et rien ne bouge sur le site. Pour
+qu'une modification soit visible en ligne, elle doit être reportée dans
+`lib/projects.ts` puis déployée. Ne pas « réparer » ça en remettant Prisma dans les
+pages publiques sans en parler : c'est un choix assumé, pas un oubli.
+
+`prisma/seed.ts` importe la même liste et la sème dans la base, qui reste la source du
+dashboard. Conséquences :
+
 - `npm run seed` écrit **sur la base de production**. C'est un upsert par `slug` : il
-  ajoute et met à jour, il ne supprime jamais. Le dire avant de le lancer.
-- Le tableau de bord permet aussi d'éditer les projets. Si quelqu'un a modifié un texte
-  depuis l'admin, re-semer l'écrase. Vérifier avant.
+  ajoute et met à jour, il ne supprime jamais, et il ne réécrit pas l'`id` des lignes
+  existantes. Le dire avant de le lancer.
+- Re-semer écrase les textes édités depuis l'admin. Vérifier avant.
 
 Ordre voulu : les **applications métier sur mesure d'abord** (`featured: true`), les
 sites vitrine ensuite. C'est ce qui distingue l'agence d'un intégrateur WordPress.
