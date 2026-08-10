@@ -73,6 +73,25 @@ npm test
 
 Tests unitaires (Vitest) pour la logique pure : validation de projet (slug, URL, image), correspondance du chatbot FAQ.
 
+## Déploiement (Vercel)
+
+Le client Prisma est généré dans `lib/generated/prisma`, qui est **gitignoré** : sans `prisma generate` avant `next build`, le déploiement échoue sur un import introuvable. C'est pourquoi le script `build` est `prisma generate && next build` (et `postinstall` le refait après un clone neuf). Ne pas le simplifier en `next build`.
+
+Variables à déclarer dans **Project Settings > Environment Variables**, pour Production *et* Preview — ce sont les mêmes que le `.env` local, plus `SITE_URL` :
+
+| Variable | Remarque |
+|---|---|
+| `DATABASE_URL` | session pooler Supabase, port 5432 |
+| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | upload d'images depuis le dashboard |
+| `SESSION_SECRET` | signature du cookie de session |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | compte admin |
+| `OPENROUTER_API_KEY`, `OPENROUTER_MODEL` | chatbot (facultatif : repli FAQ sans clé) |
+| `SITE_URL` | **l'URL publique complète**, sans barre finale |
+
+`SITE_URL` n'a pas de valeur par défaut utilisable en ligne : le code retombe sur `http://localhost:3000`, et `sitemap.xml`, `robots.txt`, les URL canoniques et les images Open Graph pointeraient alors toutes vers localhost. C'est invisible à l'œil et fatal pour le référencement.
+
+Les pages publiques sont en `force-dynamic` : ajouter ou modifier un projet (depuis le dashboard ou via `npm run seed`) apparaît en ligne immédiatement, sans redéploiement.
+
 ## Notes
 
 - Les images du portfolio migrées depuis l'ancien site statique vivent dans `public/portfolio/`.
