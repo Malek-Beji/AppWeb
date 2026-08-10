@@ -38,7 +38,13 @@ npx prisma migrate dev --name init
 npm run seed
 ```
 
-Cela crée les tables et insère les 7 projets du portfolio ainsi que le compte admin défini par `ADMIN_EMAIL` / `ADMIN_PASSWORD`. Relancer `npm run seed` à tout moment est sans danger (upsert) — utile pour synchroniser le mot de passe admin si vous changez `ADMIN_PASSWORD` dans `.env`.
+Cela crée les tables et insère les 10 projets du portfolio ainsi que le compte admin défini par `ADMIN_EMAIL` / `ADMIN_PASSWORD`. Relancer `npm run seed` à tout moment est sans danger (upsert) : les projets sont resynchronisés, et **le mot de passe admin n'est pas touché** si le compte existe déjà.
+
+Pour resynchroniser volontairement le mot de passe depuis `.env` (cela réinitialise aussi le compteur de tentatives et le verrouillage) :
+
+```bash
+npm run seed -- --reset-admin-password
+```
 
 > ⚠️ `prisma migrate dev` a besoin de créer une base "shadow" temporaire : utilisez le **session pooler** (port 5432), pas le **transaction pooler** (port 6543 / pgbouncer) qui ne le supporte pas. Les nouveaux projets Supabase n'exposent plus de host direct `db.<ref>.supabase.co` en IPv4, donc le session pooler est l'option qui fonctionne dans les deux cas. Si ça bloque malgré tout, `npx prisma db push` applique le schéma sans passer par une shadow database (à réserver au développement, pas au suivi de migrations en production).
 
